@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Telemedicine System{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto; padding: 2rem 1rem;">
+    
+    {% if user.is_authenticated %}
+        <!-- Authenticated User Dashboard -->
+        <div style="margin-bottom: 2rem;">
+            <h2 style="color: #2c3e50; margin-bottom: 0.5rem;">
+                Welcome back, {% if user.is_client %}{{ user.client_profile.full_name|default:user.email }}{% elif user.is_doctor %}Dr. {{ user.email }}{% else %}Administrator{% endif %}!
+            </h2>
+            <p style="color: #666; font-size: 1.1rem;">
+                {% if user.is_client %}
+                    Here is a quick overview of your health consultations.
+                {% elif user.is_doctor %}
+                    Here is a quick overview of your patient requests and schedule.
+                {% else %}
+                    Manage the telemedicine platform from the admin panel.
+                {% endif %}
+            </p>
+        </div>
+
+        {% if user.is_client %}
+            <!-- Client Stats -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #ffc107;">
+                    <h3 style="margin: 0 0 0.5rem 0; color: #856404; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">Pending Requests</h3>
+                    <p style="font-size: 2.5rem; font-weight: 700; color: #2c3e50; margin: 0;">{{ pending_consultations|default:0 }}</p>
+                    <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">Waiting for doctor approval</p>
+                </div>
+                
+                <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #28a745;">
+                    <h3 style="margin: 0 0 0.5rem 0; color: #155724; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">Active Consultations</h3>
+                    <p style="font-size: 2.5rem; font-weight: 700; color: #2c3e50; margin: 0;">{{ active_consultations|default:0 }}</p>
+                    <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">Currently in progress</p>
+                </div>
+            </div>
+
+            <!-- Client Quick Actions -->
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="{% url 'medical_data:symptom_select' %}" class="btn-primary" style="width: auto; padding: 0.75rem 1.5rem; text-decoration: none; display: inline-block;">Start New Health Episode</a>
+                <a href="{% url 'episodes:episode_list' %}" class="btn-primary" style="width: auto; padding: 0.75rem 1.5rem; text-decoration: none; display: inline-block; background-color: #2c3e50;">View My Episodes</a>
+            </div>
+
+        {% elif user.is_doctor %}
+            <!-- Doctor Stats -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #dc3545;">
+                    <h3 style="margin: 0 0 0.5rem 0; color: #721c24; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">Pending Requests</h3>
+                    <p style="font-size: 2.5rem; font-weight: 700; color: #2c3e50; margin: 0;">{{ pending_requests|default:0 }}</p>
+                    <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">Require your review</p>
+                </div>
+                
+                <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #28a745;">
+                    <h3 style="margin: 0 0 0.5rem 0; color: #155724; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">Active Consultations</h3>
+                    <p style="font-size: 2.5rem; font-weight: 700; color: #2c3e50; margin: 0;">{{ active_consultations|default:0 }}</p>
+                    <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">Currently in progress</p>
+                </div>
+            </div>
+
+            <!-- Doctor Quick Actions -->
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="{% url 'episodes:doctor_pending_requests' %}" class="btn-primary" style="width: auto; padding: 0.75rem 1.5rem; text-decoration: none; display: inline-block; background-color: #dc3545;">Review Pending Requests</a>
+                <a href="{% url 'messaging:chat_list' %}" class="btn-primary" style="width: auto; padding: 0.75rem 1.5rem; text-decoration: none; display: inline-block; background-color: #2c3e50;">View My Chats</a>
+            </div>
+
+        {% else %}
+            <!-- Admin Quick Actions -->
+            <div style="background-color: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center;">
+                <h3 style="color: #2c3e50; margin-bottom: 1rem;">System Administration</h3>
+                <p style="color: #666; margin-bottom: 1.5rem;">Manage users, specialties, articles, and system settings.</p>
+                <a href="{% url 'admin:index' %}" class="btn-primary" style="width: auto; padding: 0.75rem 1.5rem; text-decoration: none; display: inline-block;">Go to Admin Panel</a>
+            </div>
+        {% endif %}
+
+    {% else %}
+        <!-- Public Landing Page -->
+        <div style="text-align: center; padding: 3rem 1rem;">
+            <h2 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 1rem;">Welcome to the Telemedicine System</h2>
+            <p style="color: #666; font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem auto; line-height: 1.6;">
+                Connect with verified healthcare professionals from the comfort of your home. 
+                Manage your health profile, read expert articles, and consult with doctors securely.
+            </p>
+            
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem;">
+                <a href="{% url 'accounts:register' %}" class="btn-primary" style="width: auto; padding: 0.75rem 2rem; text-decoration: none; display: inline-block; font-size: 1.1rem;">Get Started</a>
+                <a href="{% url 'accounts:login' %}" class="btn-primary" style="width: auto; padding: 0.75rem 2rem; text-decoration: none; display: inline-block; background-color: #2c3e50; font-size: 1.1rem;">Log In</a>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 800px; margin: 0 auto; text-align: left;">
+                <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="color: #3498db; margin-top: 0;">👤 Client Profiles</h4>
+                    <p style="color: #666; font-size: 0.95rem;">Securely store your health history, allergies, and medications for doctors to review.</p>
+                </div>
+                <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="color: #3498db; margin-top: 0;">💬 Secure Messaging</h4>
+                    <p style="color: #666; font-size: 0.95rem;">Communicate directly with your doctor in a private, HIPAA-compliant environment.</p>
+                </div>
+                <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h4 style="color: #3498db; margin-top: 0;">📚 Knowledge Base</h4>
+                    <p style="color: #666; font-size: 0.95rem;">Access a library of verified health articles and wellness tips curated by professionals.</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

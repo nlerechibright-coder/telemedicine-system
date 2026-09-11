@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Consultation Details - Telemedicine System{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem;">
+    <a href="{% url 'consultations:client_consultation_list' %}" style="display: inline-flex; align-items: center; color: #3498db; text-decoration: none; font-weight: 600; margin-bottom: 1.5rem;">
+        ← Back to My Consultations
+    </a>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+        <!-- Consultation Info Card -->
+        <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <h3 style="margin-top: 0; color: #2c3e50;">Consultation Details</h3>
+            <p><strong>Doctor:</strong> Dr. {{ consultation.doctor.email }}</p>
+            <p><strong>Status:</strong> 
+                <span style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; 
+                    {% if consultation.status == 'PENDING' %}background-color: #fff3cd; color: #856404;
+                    {% elif consultation.status == 'ACCEPTED' %}background-color: #d4edda; color: #155724;
+                    {% elif consultation.status == 'REJECTED' %}background-color: #f8d7da; color: #721c24;
+                    {% elif consultation.status == 'COMPLETED' %}background-color: #d1ecf1; color: #0c5460;
+                    {% else %}background-color: #e2e3e5; color: #383d41;{% endif %}">
+                    {{ consultation.get_status_display }}
+                </span>
+            </p>
+            <p><strong>Requested:</strong> {{ consultation.created_at|date:"F d, Y H:i" }}</p>
+            {% if consultation.scheduled_at %}
+                <p><strong>Scheduled For:</strong> {{ consultation.scheduled_at|date:"F d, Y H:i" }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Reason & Notes Card -->
+        <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <h3 style="margin-top: 0; color: #2c3e50;">Details</h3>
+            <p><strong>Your Reason:</strong><br>{{ consultation.reason }}</p>
+            {% if consultation.doctor_notes %}
+                <p style="margin-top: 1rem;"><strong>Doctor's Notes:</strong><br>{{ consultation.doctor_notes }}</p>
+            {% endif %}
+            {% if consultation.status == 'REJECTED' and consultation.rejection_reason %}
+                <p style="margin-top: 1rem; color: #721c24;"><strong>Rejection Reason:</strong><br>{{ consultation.rejection_reason }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Messaging Section (Only if ACCEPTED) -->
+    {% if consultation.can_be_messaged %}
+        <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <h3 style="margin-top: 0; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem; margin-bottom: 1rem;">Messages</h3>
+            
+            <div style="max-height: 400px; overflow-y: auto; margin-bottom: 1.5rem; padding-right: 0.5rem;">
+                {% for msg in messages_list %}
+                    <div style="margin-bottom: 1rem; display: flex; {% if msg.sender == request.user %}justify-content: flex-end;{% else %}justify-content: flex-start;{% endif %}">
+                        <div style="max-width: 70%; padding: 1rem; border-radius: 8px; 
+                            {% if msg.sender == request.user %}background-color: #3498db; color: white;{% else %}background-color: #f8f9fa; color: #333;{% endif %}">
+                            <div style="font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem; {% if msg.sender == request.user %}color: #e8f4f8;{% else %}color: #6c757d;{% endif %}">
+                                {% if msg.sender == request.user %}You{% else %}Dr. {{ msg.sender.email }}{% endif %} • {{ msg.sent_at|date:"M d, H:i" }}
+                            </div>
+                            <div style="white-space: pre-wrap;">{{ msg.content }}</div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p style="text-align: center; color: #6c757d;">No messages yet. Start the conversation!</p>
+                {% endfor %}
+            </div>
+
+            <form method="post" class="auth-form" style="margin-top: 0;">
+                {% csrf_token %}
+                <div style="display: flex; gap: 1rem;">
+                    <div style="flex: 1;">
+                        {{ message_form.content }}
+                    </div>
+                    <button type="submit" name="send_message" class="btn-primary" style="width: auto; padding: 0 1.5rem;">Send</button>
+                </div>
+            </form>
+        </div>
+    {% elif consultation.status == 'PENDING' %}
+        <div style="background-color: #fff3cd; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #ffc107; color: #856404;">
+            <strong>Pending:</strong> Messaging will be enabled once the doctor accepts your consultation request.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

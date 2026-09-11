@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Doctor Dashboard - Telemedicine System{% endblock %}
+
+{% block extra_css %}<style>body > header, body > footer { display: none; } body > main { max-width: none; padding: 0; }</style>{% endblock %}
+
+{% block content %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<div class="-mx-5 -my-8 min-h-[calc(100vh-200px)] bg-slate-100 text-slate-900 lg:-mx-8">
+    <div class="flex min-h-[calc(100vh-200px)]">
+        <aside id="doctor-sidebar" class="fixed inset-y-0 left-0 z-40 flex w-72 -translate-x-full flex-col border-r border-slate-200 bg-white px-5 py-6 shadow-xl transition-transform lg:sticky lg:top-0 lg:h-[calc(100vh-200px)] lg:translate-x-0 lg:shadow-none">
+            <div class="mb-10 flex items-center justify-between">
+                <a href="{% url 'doctors:dashboard' %}" class="flex items-center gap-3 text-slate-900 no-underline">
+                    <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-700 text-white"><i data-lucide="heart-pulse" class="h-5 w-5"></i></span>
+                    <span><span class="block text-sm font-semibold tracking-wide text-teal-700">CARELINK</span><span class="block text-xs text-slate-400">Doctor workspace</span></span>
+                </a>
+                <button type="button" data-close-sidebar class="rounded-lg p-2 text-slate-500 hover:bg-slate-100 lg:hidden" aria-label="Close navigation"><i data-lucide="x" class="h-5 w-5"></i></button>
+            </div>
+            <nav class="flex-1 space-y-8">
+                <div>
+                    <p class="mb-3 px-3 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-slate-400">Main</p>
+                    <div class="space-y-1">
+                        <a href="{% url 'doctors:dashboard' %}" class="flex items-center gap-3 rounded-xl bg-teal-50 px-3 py-2.5 text-sm font-semibold text-teal-800"><i data-lucide="layout-dashboard" class="h-4 w-4"></i>Dashboard</a>
+                        <a href="{% url 'episodes:doctor_pending_requests' %}" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"><i data-lucide="inbox" class="h-4 w-4"></i>Consultation requests{% if pending_requests %}<span class="ml-auto rounded-full bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-700">{{ pending_requests|length }}</span>{% endif %}</a>
+                        <a href="{% url 'messaging:chat_list' %}" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"><i data-lucide="messages-square" class="h-4 w-4"></i>My chats{% if unread_messages %}<span class="ml-auto rounded-full bg-rose-100 px-2 py-0.5 text-xs font-bold text-rose-700">{{ unread_messages }}</span>{% endif %}</a>
+                        <a href="{% url 'knowledge_base:article_list' %}" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"><i data-lucide="book-open" class="h-4 w-4"></i>Knowledge base</a>
+                    </div>
+                </div>
+                <div>
+                    <p class="mb-3 px-3 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-slate-400">Account</p>
+                    <div class="space-y-1">
+                        <a href="{% url 'doctors:view_profile' %}" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"><i data-lucide="user-round" class="h-4 w-4"></i>Profile</a>
+                        <a href="{% url 'doctors:edit_profile' %}" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"><i data-lucide="settings-2" class="h-4 w-4"></i>Profile settings</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="border-t border-slate-100 pt-5">
+                <form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}<button type="submit" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-500 hover:bg-rose-50 hover:text-rose-700"><i data-lucide="log-out" class="h-4 w-4"></i>Log out</button></form>
+            </div>
+        </aside>
+
+        <div class="min-w-0 flex-1">
+            <header class="border-b border-slate-200 bg-white px-5 py-4 sm:px-8 lg:px-10">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <button type="button" data-open-sidebar class="rounded-xl border border-slate-200 p-2 text-slate-600 lg:hidden" aria-label="Open navigation"><i data-lucide="menu" class="h-5 w-5"></i></button>
+                        <div><p class="text-xs font-semibold uppercase tracking-[0.16em] text-teal-700">Clinical overview</p><h1 class="mt-1 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">Good morning, Dr. {{ user.email }}</h1></div>
+                    </div>
+                    <div class="hidden items-center gap-3 sm:flex"><span class="h-2.5 w-2.5 rounded-full {% if profile.availability_status == 'AVAILABLE' %}bg-emerald-500{% else %}bg-slate-300{% endif %}"></span><span class="text-sm font-medium text-slate-600">{{ profile.get_availability_status_display }}</span></div>
+                </div>
+            </header>
+
+            <main class="px-5 py-7 sm:px-8 lg:px-10">
+                <div class="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><div class="flex items-center justify-between"><span class="text-sm font-medium text-slate-500">Pending requests</span><span class="rounded-lg bg-amber-50 p-2 text-amber-700"><i data-lucide="clock-3" class="h-4 w-4"></i></span></div><p class="mt-4 text-3xl font-bold text-slate-900">{{ pending_requests|length }}</p><p class="mt-1 text-xs text-slate-500">Awaiting your review</p></div>
+                    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><div class="flex items-center justify-between"><span class="text-sm font-medium text-slate-500">Active consultations</span><span class="rounded-lg bg-emerald-50 p-2 text-emerald-700"><i data-lucide="stethoscope" class="h-4 w-4"></i></span></div><p class="mt-4 text-3xl font-bold text-slate-900">{{ active_consultations|length }}</p><p class="mt-1 text-xs text-slate-500">Currently in consultation</p></div>
+                    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><div class="flex items-center justify-between"><span class="text-sm font-medium text-slate-500">Unread messages</span><span class="rounded-lg bg-sky-50 p-2 text-sky-700"><i data-lucide="message-circle" class="h-4 w-4"></i></span></div><p class="mt-4 text-3xl font-bold text-slate-900">{{ unread_messages }}</p><p class="mt-1 text-xs text-slate-500">Across active chats</p></div>
+                    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><div class="flex items-center justify-between"><span class="text-sm font-medium text-slate-500">Availability</span><span class="rounded-lg bg-violet-50 p-2 text-violet-700"><i data-lucide="calendar-check-2" class="h-4 w-4"></i></span></div><p class="mt-4 text-xl font-bold text-slate-900">{{ profile.get_availability_status_display }}</p><p class="mt-1 text-xs text-slate-500">Update your status below</p></div>
+                </div>
+
+                <div class="grid gap-7 xl:grid-cols-[minmax(0,1fr)_21rem]">
+                    <section class="min-w-0">
+                        <div class="mb-4 flex items-end justify-between gap-4"><div><p class="text-xs font-bold uppercase tracking-[0.16em] text-teal-700">Your queue</p><h2 class="mt-1 text-xl font-bold text-slate-900">Consultation requests</h2></div><a href="{% url 'episodes:doctor_pending_requests' %}" class="text-sm font-semibold text-teal-700 hover:text-teal-900">View all</a></div>
+                        <div class="space-y-3">
+                            {% for request in pending_requests %}
+                                <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-teal-200 hover:shadow-md"><div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div class="flex min-w-0 items-start gap-3"><span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-sm font-bold text-teal-700">{{ request.client.email|slice:':1'|upper }}</span><div class="min-w-0"><p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Request #{{ request.id }}</p><p class="truncate font-semibold text-slate-900">{{ request.client.email }}</p><p class="mt-1 truncate text-sm text-slate-500">{{ request.episode.title|default:'Untitled episode' }}</p><p class="mt-2 text-xs text-slate-400">Received {{ request.created_at|date:'M d, Y · H:i' }}</p></div></div><a href="{% url 'episodes:doctor_request_detail' request.id %}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white no-underline hover:bg-teal-800"><i data-lucide="arrow-up-right" class="h-4 w-4"></i>Review</a></div></article>
++                            {% empty %}<div class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-12 text-center"><span class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-400"><i data-lucide="inbox" class="h-5 w-5"></i></span><h3 class="mt-4 font-semibold text-slate-900">Queue is clear</h3><p class="mt-1 text-sm text-slate-500">New consultation requests will appear here.</p></div>{% endfor %}
++                        </div>
++
++                        <div class="mb-4 mt-10 flex items-end justify-between gap-4"><div><p class="text-xs font-bold uppercase tracking-[0.16em] text-teal-700">In progress</p><h2 class="mt-1 text-xl font-bold text-slate-900">Active consultations</h2></div><a href="{% url 'messaging:chat_list' %}" class="text-sm font-semibold text-teal-700 hover:text-teal-900">Open chats</a></div>
++                        <div class="grid gap-3 md:grid-cols-2">
++                            {% for consultation in active_consultations %}<article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><div class="flex items-start justify-between gap-3"><div><p class="font-semibold text-slate-900">{{ consultation.client.email }}</p><p class="mt-1 text-sm text-slate-500">{{ consultation.episode.title|default:'Active episode' }}</p></div><span class="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">Active</span></div><div class="mt-5 flex flex-wrap gap-2"><a href="{% url 'messaging:chat_view' consultation.episode.id %}" class="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-3 py-2 text-xs font-semibold text-white no-underline hover:bg-slate-700"><i data-lucide="message-circle" class="h-3.5 w-3.5"></i>Open chat</a><a href="{% url 'messaging:start_video' consultation.episode.id %}" class="inline-flex items-center gap-2 rounded-xl border border-teal-200 px-3 py-2 text-xs font-semibold text-teal-800 no-underline hover:bg-teal-50"><i data-lucide="video" class="h-3.5 w-3.5"></i>WhatsApp video</a></div></article>{% empty %}<div class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-10 text-center md:col-span-2"><p class="text-sm text-slate-500">Accepted consultations will appear here.</p></div>{% endfor %}
++                        </div>
++                    </section>
++
++                    <aside class="space-y-5">
++                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><div class="flex items-center justify-between"><h2 class="font-bold text-slate-900">Availability</h2><i data-lucide="sliders-horizontal" class="h-4 w-4 text-slate-400"></i></div><p class="mt-1 text-sm text-slate-500">Let patients know when you can respond.</p><form method="post" action="{% url 'doctors:update_availability' %}" class="mt-5 space-y-3">{% csrf_token %}<label for="{{ availability_form.availability_status.id_for_label }}" class="text-xs font-semibold uppercase tracking-wide text-slate-500">Current status</label>{{ availability_form.availability_status }}<button type="submit" class="w-full rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800">Update status</button></form></div>
++                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><h2 class="font-bold text-slate-900">Professional profile</h2><div class="mt-4 space-y-4 text-sm"><div><p class="text-xs uppercase tracking-wide text-slate-400">Specialty</p><p class="mt-1 font-semibold text-slate-800">{{ profile.specialty.name }}</p></div><div><p class="text-xs uppercase tracking-wide text-slate-400">Verification</p><p class="mt-1 flex items-center gap-2 font-semibold {% if profile.is_verified %}text-emerald-700{% else %}text-rose-700{% endif %}"><span class="h-2 w-2 rounded-full {% if profile.is_verified %}bg-emerald-500{% else %}bg-rose-500{% endif %}"></span>{% if profile.is_verified %}Verified{% else %}Pending verification{% endif %}</p></div></div><a href="{% url 'doctors:view_profile' %}" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-teal-700 no-underline hover:text-teal-900">View profile <i data-lucide="arrow-right" class="h-4 w-4"></i></a></div>
++                    </aside>
++                </div>
++            </main>
++        </div>
++    </div>
++</div>
++
++<script>
++    document.querySelector('[data-open-sidebar]')?.addEventListener('click', () => document.getElementById('doctor-sidebar').classList.remove('-translate-x-full'));
++    document.querySelector('[data-close-sidebar]')?.addEventListener('click', () => document.getElementById('doctor-sidebar').classList.add('-translate-x-full'));
++    lucide.createIcons();
++</script>
++{% endblock %}

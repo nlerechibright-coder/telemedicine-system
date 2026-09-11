@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}Review Request #{{ doctor_request.id }}{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem;">
+    <a href="{% url 'episodes:doctor_pending_requests' %}" style="display: inline-block; margin-bottom: 1rem; color: #3498db; text-decoration: none;">
+        ← Back to Pending Requests
+    </a>
+    
+    <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 2rem; margin-bottom: 2rem;">
+        <h2 style="color: #2c3e50; margin-bottom: 0.5rem;">Review Request #{{ doctor_request.id }}</h2>
+        <p style="color: #6c757d; margin-bottom: 2rem;">
+            From: {{ doctor_request.client.email }} • Episode #{{ doctor_request.episode.id }}
+        </p>
+        
+        <!-- Episode Context -->
+        <div style="margin-bottom: 2rem; padding: 1.5rem; background-color: #f8f9fa; border-radius: 4px;">
+            <h3 style="color: #2c3e50; margin-bottom: 1rem;">Episode Details</h3>
+            <p style="margin: 0 0 1rem 0; color: #495057;"><strong>Title:</strong> {{ episode.title|default:"Untitled Episode" }}</p>
+            
+            <h4 style="color: #2c3e50; font-size: 1rem; margin-bottom: 0.5rem;">Reported Symptoms:</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                {% for ep_symptom in episode_symptoms %}
+                    <span style="padding: 0.25rem 0.75rem; background-color: #e9ecef; border-radius: 12px; font-size: 0.9rem; color: #495057;">
+                        {{ ep_symptom.symptom.name }} ({{ ep_symptom.get_reported_severity_display }})
+                    </span>
+                {% endfor %}
+            </div>
+            
+            {% if episode_matches %}
+                <h4 style="color: #2c3e50; font-size: 1rem; margin-bottom: 0.5rem;">Possible Conditions:</h4>
+                <ul style="margin: 0; padding-left: 1.5rem; color: #495057;">
+                    {% for match in episode_matches %}
+                        <li>{{ match.condition.name }} (Score: {{ match.match_score }}, Coverage: {{ match.coverage_percentage }}%)</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Client's Reason -->
+        <div style="margin-bottom: 2rem;">
+            <h3 style="color: #2c3e50; margin-bottom: 0.5rem;">Client's Reason for Consultation</h3>
+            <p style="margin: 0; color: #495057; line-height: 1.6; padding: 1rem; background-color: #fff3cd; border-radius: 4px; border-left: 3px solid #ffc107;">
+                {{ doctor_request.reason }}
+            </p>
+        </div>
+        
+        <!-- Response Form -->
+        <div style="border-top: 2px solid #e9ecef; padding-top: 2rem;">
+            <h3 style="color: #2c3e50; margin-bottom: 1rem;">Your Response</h3>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                    <div style="background-color: #f8d7da; color: #721c24; padding: 1rem; border-radius: 4px; margin-bottom: 1.5rem;">
+                        {% for error in form.non_field_errors %}
+                            <p style="margin: 0;">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="{{ form.status.id_for_label }}" style="display: block; font-weight: 600; color: #2c3e50; margin-bottom: 0.5rem;">
+                        {{ form.status.label }}
+                    </label>
+                    {{ form.status }}
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="{{ form.doctor_notes.id_for_label }}" style="display: block; font-weight: 600; color: #2c3e50; margin-bottom: 0.5rem;">
+                        {{ form.doctor_notes.label }}
+                    </label>
+                    {{ form.doctor_notes }}
+                    {% if form.doctor_notes.errors %}
+                        <div style="color: #dc3545; font-size: 0.9rem; margin-top: 0.25rem;">
+                            {% for error in form.doctor_notes.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div id="rejection-reason-field" style="margin-bottom: 1.5rem;">
+                    <label for="{{ form.rejection_reason.id_for_label }}" style="display: block; font-weight: 600; color: #2c3e50; margin-bottom: 0.5rem;">
+                        {{ form.rejection_reason.label }}
+                    </label>
+                    {{ form.rejection_reason }}
+                    {% if form.rejection_reason.errors %}
+                        <div style="color: #dc3545; font-size: 0.9rem; margin-top: 0.25rem;">
+                            {% for error in form.rejection_reason.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <a href="{% url 'episodes:doctor_pending_requests' %}" style="padding: 0.75rem 1.5rem; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px;">
+                        Cancel
+                    </a>
+                    <button type="submit" style="padding: 0.75rem 2rem; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">
+                        Submit Response
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Show/hide rejection reason field based on status selection
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusSelect = document.getElementById('{{ form.status.id_for_label }}');
+        const rejectionField = document.getElementById('rejection-reason-field');
+        
+        function toggleRejectionField() {
+            if (statusSelect.value === 'REJECTED') {
+                rejectionField.style.display = 'block';
+            } else {
+                rejectionField.style.display = 'none';
+            }
+        }
+        
+        // Initial state
+        toggleRejectionField();
+        
+        // On change
+        statusSelect.addEventListener('change', toggleRejectionField);
+    });
+</script>
+{% endblock %}

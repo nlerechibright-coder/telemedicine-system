@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}My Health Episodes - Telemedicine System{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto; padding: 2rem 1rem;">
+    <h2 style="color: #2c3e50; margin-bottom: 1.5rem;">My Health Episodes</h2>
+    
+    {% if episodes %}
+        <div style="display: grid; gap: 1.5rem;">
+            {% for episode in episodes %}
+                <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 1.5rem; border-left: 4px solid 
+                    {% if episode.status == 'EMERGENCY' %}#dc3545
+                    {% elif episode.status == 'IN_CONSULTATION' %}#28a745
+                    {% elif episode.status == 'AWAITING_DOCTOR' %}#ffc107
+                    {% else %}#6c757d{% endif %};">
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                        <div>
+                            <h3 style="margin: 0 0 0.5rem 0; color: #2c3e50;">
+                                <a href="{% url 'episodes:episode_detail' episode.id %}" style="color: #2c3e50; text-decoration: none;">
+                                    {{ episode.title|default:"Untitled Episode" }}
+                                </a>
+                            </h3>
+                            <p style="margin: 0; color: #6c757d; font-size: 0.9rem;">
+                                Episode #{{ episode.id }} • Created {{ episode.created_at|date:"M d, Y" }}
+                            </p>
+                        </div>
+                        <span style="padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; background-color: 
+                            {% if episode.status == 'EMERGENCY' %}#f8d7da; color: #721c24
+                            {% elif episode.status == 'IN_CONSULTATION' %}#d4edda; color: #155724
+                            {% elif episode.status == 'AWAITING_DOCTOR' %}#fff3cd; color: #856404
+                            {% elif episode.status == 'COMPLETED' %}#d1ecf1; color: #0c5460
+                            {% else %}#e2e3e5; color: #383d41{% endif %};">
+                            {{ episode.get_status_display }}
+                        </span>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e9ecef;">
+                        <div>
+                            <strong style="color: #6c757d; font-size: 0.85rem;">Symptoms</strong>
+                            <p style="margin: 0.25rem 0 0 0; font-size: 1.25rem; font-weight: 600; color: #2c3e50;">{{ episode.episode_symptoms.count }}</p>
+                        </div>
+                        <div>
+                            <strong style="color: #6c757d; font-size: 0.85rem;">Matches</strong>
+                            <p style="margin: 0.25rem 0 0 0; font-size: 1.25rem; font-weight: 600; color: #2c3e50;">{{ episode.condition_matches.count }}</p>
+                        </div>
+                        <div>
+                            <strong style="color: #6c757d; font-size: 0.85rem;">Requests</strong>
+                            <p style="margin: 0.25rem 0 0 0; font-size: 1.25rem; font-weight: 600; color: #2c3e50;">{{ episode.doctor_requests.count }}</p>
+                        </div>
+                    </div>
+                    
+                    {% if episode.status == 'MATCHING' or episode.status == 'AWAITING_DOCTOR' %}
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e9ecef;">
+                            <a href="{% url 'episodes:request_doctor' episode.id %}" class="btn-primary" style="display: inline-block; padding: 0.5rem 1.5rem; text-decoration: none;">
+                                Request Doctor
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="background-color: #f8f9fa; padding: 3rem; border-radius: 8px; text-align: center;">
+            <p style="color: #6c757d; font-size: 1.1rem; margin-bottom: 1rem;">You don't have any health episodes yet.</p>
+            <a href="{% url 'medical_data:symptom_select' %}" class="btn-primary" style="display: inline-block; padding: 0.75rem 2rem; text-decoration: none;">
+                Start Symptom Checker
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

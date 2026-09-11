@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile - Telemedicine System{% endblock %}
+
+{% block content %}
+<div class="auth-container" style="max-width: 700px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="margin: 0;">My Health Profile</h2>
+        <a href="{% url 'clients:edit_profile' %}" class="btn-primary" style="width: auto; padding: 0.5rem 1rem; text-decoration: none; display: inline-block;">Edit Profile</a>
+    </div>
+    
+    <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem;">Personal Information</h3>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+        <div>
+            <strong>Full Name:</strong><br>
+            <span style="color: #555;">{{ profile.full_name }}</span>
+        </div>
+        <div>
+            <strong>Date of Birth:</strong><br>
+            <span style="color: #555;">{{ profile.date_of_birth }} (Age: {{ profile.get_age }})</span>
+        </div>
+        <div>
+            <strong>Gender:</strong><br>
+            <span style="color: #555;">{{ profile.get_gender_display }}</span>
+        </div>
+        <div>
+            <strong>Phone Number:</strong><br>
+            <span style="color: #555;">{{ profile.phone_number }}</span>
+        </div>
+        <div style="grid-column: 1 / -1;">
+            <strong>Address:</strong><br>
+            <span style="color: #555;">{{ profile.address|default:"Not provided" }}</span>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem;">Health Information</h3>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+        <div>
+            <strong>Blood Type:</strong><br>
+            <span style="color: #555;">{{ profile.get_blood_type_display }}</span>
+        </div>
+        <div style="grid-column: 1 / -1;">
+            <strong>Chronic Conditions:</strong><br>
+            <span style="color: #555;">{{ profile.chronic_conditions|default:"None reported" }}</span>
+        </div>
+        <div style="grid-column: 1 / -1;">
+            <strong>Allergies:</strong><br>
+            <span style="color: #555;">{{ profile.allergies|default:"None reported" }}</span>
+        </div>
+        <div style="grid-column: 1 / -1;">
+            <strong>Current Medications:</strong><br>
+            <span style="color: #555;">{{ profile.current_medications|default:"None reported" }}</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

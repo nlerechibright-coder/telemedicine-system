@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Symptom Checker - Telemedicine System{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; padding: 2rem 1rem;">
+    <h2 style="color: #2c3e50; margin-bottom: 1rem;">Symptom Checker</h2>
+    <p style="color: #666; margin-bottom: 2rem; line-height: 1.6;">
+        Select all the symptoms you are currently experiencing. This tool uses a rule-based system to provide informational guidance. 
+        <strong>It does not provide a medical diagnosis.</strong> If you are experiencing a medical emergency, please seek immediate care.
+    </p>
+
+    <form method="post" action="{% url 'medical_data:symptom_match' %}">
+        {% csrf_token %}
+        
+        <!-- Red Flag Symptoms Section -->
+        {% if red_flag_symptoms %}
+            <div style="background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+                <h3 style="color: #856404; margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    ⚠️ Emergency Symptoms (Select if applicable)
+                </h3>
+                <p style="color: #856404; font-size: 0.9rem; margin-bottom: 1rem;">
+                    Selecting any of these will trigger an immediate emergency warning.
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem;">
+                    {% for symptom in red_flag_symptoms %}
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem; background-color: white; border-radius: 4px; border: 1px solid #ffeeba;">
+                            <input type="checkbox" name="symptoms" value="{{ symptom.id }}" style="accent-color: #dc3545; transform: scale(1.2);">
+                            <span style="font-weight: 600; color: #856404;">{{ symptom.name }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Normal Symptoms Section -->
+        <div style="background-color: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+            <h3 style="color: #2c3e50; margin-top: 0; margin-bottom: 1rem;">General Symptoms</h3>
+            
+            <!-- Simple Search/Filter for symptoms (client-side JS) -->
+            <input type="text" id="symptomSearch" placeholder="Search symptoms..." 
+                   style="width: 100%; padding: 0.75rem; border: 1px solid #ced4da; border-radius: 4px; margin-bottom: 1rem; font-size: 1rem;">
+            
+            <div id="symptomList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem; max-height: 400px; overflow-y: auto; padding-right: 0.5rem;">
+                {% for symptom in normal_symptoms %}
+                    <label class="symptom-item" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem; background-color: #f8f9fa; border-radius: 4px; border: 1px solid #e9ecef; transition: background-color 0.2s;">
+                        <input type="checkbox" name="symptoms" value="{{ symptom.id }}" style="accent-color: #3498db; transform: scale(1.1);">
+                        <span>{{ symptom.name }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+            <a href="{% url 'home' %}" class="btn-primary" style="width: auto; padding: 0.75rem 1.5rem; text-decoration: none; display: inline-block; background-color: #95a5a6;">Cancel</a>
+            <button type="submit" class="btn-primary" style="width: auto; padding: 0.75rem 2rem;">Check Symptoms</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Simple client-side search filter for symptoms
+    document.getElementById('symptomSearch').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const items = document.querySelectorAll('.symptom-item');
+        
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock %}

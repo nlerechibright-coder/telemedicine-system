@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Pending Requests - Doctor Dashboard{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto; padding: 2rem 1rem;">
+    <h2 style="color: #2c3e50; margin-bottom: 1.5rem;">Pending Doctor Requests</h2>
+    
+    {% if pending_requests %}
+        <div style="display: grid; gap: 1.5rem;">
+            {% for request in pending_requests %}
+                <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 1.5rem; border-left: 4px solid #ffc107;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                        <div>
+                            <h3 style="margin: 0 0 0.5rem 0; color: #2c3e50;">
+                                Request #{{ request.id }}
+                            </h3>
+                            <p style="margin: 0; color: #6c757d; font-size: 0.9rem;">
+                                From: {{ request.client.email }}
+                            </p>
+                            <p style="margin: 0.25rem 0 0 0; color: #6c757d; font-size: 0.9rem;">
+                                Episode #{{ request.episode.id }}: {{ request.episode.title|default:"Untitled" }}
+                            </p>
+                        </div>
+                        <span style="padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; background-color: #fff3cd; color: #856404;">
+                            {{ request.get_status_display }}
+                        </span>
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <strong style="color: #2c3e50; font-size: 0.9rem;">Reason:</strong>
+                        <p style="margin: 0.5rem 0 0 0; color: #495057; line-height: 1.5;">{{ request.reason|truncatewords:30 }}</p>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #e9ecef;">
+                        <span style="color: #6c757d; font-size: 0.85rem;">
+                            Received {{ request.created_at|date:"M d, Y H:i" }}
+                        </span>
+                        <a href="{% url 'episodes:doctor_request_detail' request.id %}" class="btn-primary" style="display: inline-block; padding: 0.5rem 1.5rem; text-decoration: none;">
+                            Review Request
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="background-color: #f8f9fa; padding: 3rem; border-radius: 8px; text-align: center;">
+            <p style="color: #6c757d; font-size: 1.1rem;">No pending requests at this time.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

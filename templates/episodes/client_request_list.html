@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}My Doctor Requests - Telemedicine System{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto; padding: 2rem 1rem;">
+    <h2 style="color: #2c3e50; margin-bottom: 1.5rem;">My Doctor Requests</h2>
+    
+    {% if requests %}
+        <div style="display: grid; gap: 1rem;">
+            {% for request in requests %}
+                <a href="{% url 'episodes:client_request_detail' request.id %}" style="text-decoration: none; color: inherit;">
+                    <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 1.5rem; border-left: 4px solid 
+                        {% if request.status == 'ACCEPTED' %}#28a745
+                        {% elif request.status == 'REJECTED' %}#dc3545
+                        {% elif request.status == 'PENDING' %}#ffc107
+                        {% else %}#6c757d{% endif %}; transition: transform 0.2s;">
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+                            <div>
+                                <h3 style="margin: 0 0 0.25rem 0; color: #2c3e50; font-size: 1.1rem;">
+                                    {% if request.doctor %}
+                                        Dr. {{ request.doctor.email }}
+                                    {% elif request.requested_specialty %}
+                                        Specialty: {{ request.requested_specialty.name }}
+                                    {% else %}
+                                        Any Available Doctor
+                                    {% endif %}
+                                </h3>
+                                <p style="margin: 0; color: #6c757d; font-size: 0.9rem;">
+                                    Episode #{{ request.episode.id }}: {{ request.episode.title|default:"Untitled" }}
+                                </p>
+                            </div>
+                            <span style="padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; background-color: 
+                                {% if request.status == 'ACCEPTED' %}#d4edda; color: #155724
+                                {% elif request.status == 'REJECTED' %}#f8d7da; color: #721c24
+                                {% elif request.status == 'PENDING' %}#fff3cd; color: #856404
+                                {% else %}#e2e3e5; color: #383d41{% endif %};">
+                                {{ request.get_status_display }}
+                            </span>
+                        </div>
+                        
+                        <p style="margin: 0; color: #6c757d; font-size: 0.85rem;">
+                            Requested {{ request.created_at|date:"M d, Y H:i" }}
+                        </p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="background-color: #f8f9fa; padding: 3rem; border-radius: 8px; text-align: center;">
+            <p style="color: #6c757d; font-size: 1.1rem; margin-bottom: 1rem;">You haven't made any doctor requests yet.</p>
+            <a href="{% url 'episodes:episode_list' %}" class="btn-primary" style="display: inline-block; padding: 0.75rem 2rem; text-decoration: none;">
+                View My Episodes
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

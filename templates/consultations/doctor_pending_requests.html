@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Pending Requests - Telemedicine System{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem;">
+    <h2 style="margin-bottom: 1.5rem; color: #2c3e50;">Pending Consultation Requests</h2>
+
+    <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden;">
+        {% if consultations %}
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead style="background-color: #f8f9fa; border-bottom: 2px solid #e9ecef;">
+                    <tr>
+                        <th style="padding: 1rem; text-align: left; color: #495057;">Client</th>
+                        <th style="padding: 1rem; text-align: left; color: #495057;">Reason Preview</th>
+                        <th style="padding: 1rem; text-align: left; color: #495057;">Requested</th>
+                        <th style="padding: 1rem; text-align: right; color: #495057;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consultation in consultations %}
+                        <tr style="border-bottom: 1px solid #e9ecef;">
+                            <td style="padding: 1rem;">{{ consultation.client.email }}</td>
+                            <td style="padding: 1rem; color: #6c757d; max-width: 300px;">
+                                {{ consultation.reason|truncatewords:15 }}
+                            </td>
+                            <td style="padding: 1rem; color: #6c757d;">{{ consultation.created_at|date:"M d, Y" }}</td>
+                            <td style="padding: 1rem; text-align: right;">
+                                <a href="{% url 'consultations:doctor_consultation_detail' consultation.id %}" class="btn-primary" style="width: auto; padding: 0.4rem 0.8rem; text-decoration: none; display: inline-block; font-size: 0.9rem;">Review</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div style="padding: 3rem; text-align: center; color: #6c757d;">
+                <p>No pending consultation requests at this time.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

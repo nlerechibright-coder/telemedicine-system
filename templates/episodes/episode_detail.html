@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}Episode #{{ episode.id }} - Telemedicine System{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem;">
+    <a href="{% url 'episodes:episode_list' %}" style="display: inline-block; margin-bottom: 1rem; color: #3498db; text-decoration: none;">
+        ← Back to My Episodes
+    </a>
+    
+    <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 2rem; margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+            <div>
+                <h2 style="margin: 0 0 0.5rem 0; color: #2c3e50;">{{ episode.title|default:"Untitled Episode" }}</h2>
+                <p style="margin: 0; color: #6c757d;">Episode #{{ episode.id }} • Created {{ episode.created_at|date:"F d, Y" }}</p>
+            </div>
+            <span style="padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; background-color: 
+                {% if episode.status == 'EMERGENCY' %}#f8d7da; color: #721c24
+                {% elif episode.status == 'IN_CONSULTATION' %}#d4edda; color: #155724
+                {% elif episode.status == 'AWAITING_DOCTOR' %}#fff3cd; color: #856404
+                {% elif episode.status == 'COMPLETED' %}#d1ecf1; color: #0c5460
+                {% else %}#e2e3e5; color: #383d41{% endif %};">
+                {{ episode.get_status_display }}
+            </span>
+        </div>
+        
+        {% if episode.status == 'MATCHING' or episode.status == 'AWAITING_DOCTOR' %}
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+                <a href="{% url 'episodes:request_doctor' episode.id %}" class="btn-primary" style="display: inline-block; padding: 0.75rem 2rem; text-decoration: none;">
+                    Request Doctor Consultation
+                </a>
+            </div>
+        {% endif %}
+    </div>
+    
+    <!-- Symptoms Section -->
+    <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 2rem; margin-bottom: 2rem;">
+        <h3 style="color: #2c3e50; margin-bottom: 1rem; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem;">Reported Symptoms</h3>
+        {% if symptoms %}
+            <div style="display: grid; gap: 0.75rem;">
+                {% for ep_symptom in symptoms %}
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background-color: #f8f9fa; border-radius: 4px;">
+                        <span style="font-weight: 500;">{{ ep_symptom.symptom.name }}</span>
+                        <span style="padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.85rem; background-color: 
+                            {% if ep_symptom.reported_severity == 'SEVERE' %}#f8d7da; color: #721c24
+                            {% elif ep_symptom.reported_severity == 'MODERATE' %}#fff3cd; color: #856404
+                            {% else %}#d4edda; color: #155724{% endif %};">
+                            {{ ep_symptom.get_reported_severity_display }}
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="color: #6c757d;">No symptoms recorded.</p>
+        {% endif %}
+    </div>
+    
+    <!-- Condition Matches Section -->
+    <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 2rem; margin-bottom: 2rem;">
+        <h3 style="color: #2c3e50; margin-bottom: 1rem; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem;">Possible Conditions</h3>
+        {% if matches %}
+            <div style="display: grid; gap: 1rem;">
+                {% for match in matches %}
+                    <div style="padding: 1rem; background-color: #f8f9fa; border-radius: 4px; border-left: 3px solid #3498db;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <strong style="color: #2c3e50;">{{ match.condition.name }}</strong>
+                            <span style="color: #3498db; font-weight: 600;">Score: {{ match.match_score }}</span>
+                        </div>
+                        <p style="margin: 0.5rem 0 0 0; color: #6c757d; font-size: 0.9rem;">
+                            Coverage: {{ match.coverage_percentage }}%
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="color: #6c757d;">No condition matches found.</p>
+        {% endif %}
+    </div>
+    
+    <!-- Doctor Requests Section -->
+    <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 2rem;">
+        <h3 style="color: #2c3e50; margin-bottom: 1rem; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem;">Doctor Requests</h3>
+        {% if requests %}
+            <div style="display: grid; gap: 1rem;">
+                {% for req in requests %}
+                    <div style="padding: 1rem; background-color: #f8f9fa; border-radius: 4px; border-left: 3px solid 
+                        {% if req.status == 'ACCEPTED' %}#28a745
+                        {% elif req.status == 'REJECTED' %}#dc3545
+                        {% elif req.status == 'PENDING' %}#ffc107
+                        {% else %}#6c757d{% endif %};">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <strong style="color: #2c3e50;">
+                                {% if req.doctor %}
+                                    Dr. {{ req.doctor.email }}
+                                {% elif req.requested_specialty %}
+                                    Specialty: {{ req.requested_specialty.name }}
+                                {% else %}
+                                    Any Available Doctor
+                                {% endif %}
+                            </strong>
+                            <span style="padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.85rem; background-color: 
+                                {% if req.status == 'ACCEPTED' %}#d4edda; color: #155724
+                                {% elif req.status == 'REJECTED' %}#f8d7da; color: #721c24
+                                {% elif req.status == 'PENDING' %}#fff3cd; color: #856404
+                                {% else %}#e2e3e5; color: #383d41{% endif %};">
+                                {{ req.get_status_display }}
+                            </span>
+                        </div>
+                        <p style="margin: 0; color: #6c757d; font-size: 0.9rem;">
+                            Requested {{ req.created_at|date:"M d, Y H:i" }}
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="color: #6c757d;">No doctor requests for this episode yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

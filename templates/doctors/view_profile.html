@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}My Professional Profile - Telemedicine System{% endblock %}
+
+{% block content %}
+<div class="auth-container" style="max-width: 700px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="margin: 0;">My Professional Profile</h2>
+        <a href="{% url 'doctors:edit_profile' %}" class="btn-primary" style="width: auto; padding: 0.5rem 1rem; text-decoration: none; display: inline-block;">Edit Profile</a>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+        <div>
+            <strong>Name:</strong><br>
+            <span style="color: #555;">Dr. {{ profile.user.email }}</span>
+        </div>
+        <div>
+            <strong>Specialty:</strong><br>
+            <span style="color: #555;">{{ profile.specialty.name }}</span>
+        </div>
+        <div>
+            <strong>License Number:</strong><br>
+            <span style="color: #555;">{{ profile.license_number }}</span>
+        </div>
+        <div>
+            <strong>Consultation Fee:</strong><br>
+            <span style="color: #555;">${{ profile.consultation_fee }}</span>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem;">Professional Details</h3>
+    
+    <div style="margin-bottom: 1.5rem;">
+        <strong>Qualifications:</strong><br>
+        <span style="color: #555;">{{ profile.qualifications|default:"Not provided" }}</span>
+    </div>
+    
+    <div style="margin-bottom: 1.5rem;">
+        <strong>Professional Bio:</strong><br>
+        <span style="color: #555; white-space: pre-wrap;">{{ profile.bio|default:"Not provided" }}</span>
+    </div>
+
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem;">Administrative Status</h3>
+    <div>
+        <strong>Verification Status:</strong><br>
+        <span style="color: {% if profile.is_verified %}#28a745{% else %}#dc3545{% endif %}; font-weight: 600;">
+            {% if profile.is_verified %}✓ Verified by Administrator{% else %}✗ Pending Administrator Verification{% endif %}
+        </span>
+        <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
+            {% if not profile.is_verified %}
+                Note: You must be verified by an administrator before you can accept patient consultations.
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endblock %}

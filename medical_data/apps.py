@@ -1,0 +1,7 @@
+from django.apps import AppConfig
+
+
+class MedicalDataConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'medical_data'
+    verbose_name = 'Medical Data (Symptoms & Conditions)'

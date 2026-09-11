@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}My Consultations - Telemedicine System{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="margin: 0; color: #2c3e50;">My Consultations</h2>
+        <a href="{% url 'consultations:doctor_pending_requests' %}" class="btn-primary" style="width: auto; padding: 0.5rem 1rem; text-decoration: none; display: inline-block; background-color: #ffc107; color: #856404;">View Pending Requests</a>
+    </div>
+
+    <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden;">
+        {% if consultations %}
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead style="background-color: #f8f9fa; border-bottom: 2px solid #e9ecef;">
+                    <tr>
+                        <th style="padding: 1rem; text-align: left; color: #495057;">Client</th>
+                        <th style="padding: 1rem; text-align: left; color: #495057;">Status</th>
+                        <th style="padding: 1rem; text-align: left; color: #495057;">Date</th>
+                        <th style="padding: 1rem; text-align: right; color: #495057;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consultation in consultations %}
+                        <tr style="border-bottom: 1px solid #e9ecef;">
+                            <td style="padding: 1rem;">{{ consultation.client.email }}</td>
+                            <td style="padding: 1rem;">
+                                <span style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; 
+                                    {% if consultation.status == 'ACCEPTED' %}background-color: #d4edda; color: #155724;
+                                    {% elif consultation.status == 'REJECTED' %}background-color: #f8d7da; color: #721c24;
+                                    {% elif consultation.status == 'COMPLETED' %}background-color: #d1ecf1; color: #0c5460;
+                                    {% else %}background-color: #e2e3e5; color: #383d41;{% endif %}">
+                                    {{ consultation.get_status_display }}
+                                </span>
+                            </td>
+                            <td style="padding: 1rem; color: #6c757d;">{{ consultation.created_at|date:"M d, Y" }}</td>
+                            <td style="padding: 1rem; text-align: right;">
+                                <a href="{% url 'consultations:doctor_consultation_detail' consultation.id %}" class="btn-primary" style="width: auto; padding: 0.4rem 0.8rem; text-decoration: none; display: inline-block; font-size: 0.9rem;">View Details</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div style="padding: 3rem; text-align: center; color: #6c757d;">
+                <p>You don't have any accepted, completed, or rejected consultations yet.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

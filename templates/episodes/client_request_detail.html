@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Request #{{ doctor_request.id }} - Telemedicine System{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; padding: 2rem 1rem;">
+    <a href="{% url 'episodes:client_request_list' %}" style="display: inline-block; margin-bottom: 1rem; color: #3498db; text-decoration: none;">
+        ← Back to My Requests
+    </a>
+    
+    <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 2rem; margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+            <div>
+                <h2 style="margin: 0 0 0.5rem 0; color: #2c3e50;">Doctor Request #{{ doctor_request.id }}</h2>
+                <p style="margin: 0; color: #6c757d;">
+                    Episode #{{ doctor_request.episode.id }}: {{ doctor_request.episode.title|default:"Untitled Episode" }}
+                </p>
+            </div>
+            <span style="padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; background-color: 
+                {% if doctor_request.status == 'ACCEPTED' %}#d4edda; color: #155724
+                {% elif doctor_request.status == 'REJECTED' %}#f8d7da; color: #721c24
+                {% elif doctor_request.status == 'PENDING' %}#fff3cd; color: #856404
+                {% else %}#e2e3e5; color: #383d41{% endif %};">
+                {{ doctor_request.get_status_display }}
+            </span>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <h3 style="color: #2c3e50; font-size: 1.1rem; margin-bottom: 0.5rem;">Requested Doctor</h3>
+            <p style="margin: 0; color: #495057;">
+                {% if doctor_request.doctor %}
+                    <strong>Dr. {{ doctor_request.doctor.email }}</strong>
+                {% elif doctor_request.requested_specialty %}
+                    <strong>Specialty: {{ doctor_request.requested_specialty.name }}</strong>
+                {% else %}
+                    <strong>Any Available Doctor</strong>
+                {% endif %}
+            </p>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <h3 style="color: #2c3e50; font-size: 1.1rem; margin-bottom: 0.5rem;">Your Reason</h3>
+            <p style="margin: 0; color: #495057; line-height: 1.6;">{{ doctor_request.reason }}</p>
+        </div>
+        
+        {% if doctor_request.doctor_notes %}
+            <div style="margin-bottom: 1.5rem; padding: 1rem; background-color: #e8f4f8; border-radius: 4px; border-left: 3px solid #3498db;">
+                <h3 style="color: #2c3e50; font-size: 1.1rem; margin-bottom: 0.5rem;">Doctor's Notes</h3>
+                <p style="margin: 0; color: #495057; line-height: 1.6;">{{ doctor_request.doctor_notes }}</p>
+            </div>
+        {% endif %}
+        
+        {% if doctor_request.rejection_reason %}
+            <div style="margin-bottom: 1.5rem; padding: 1rem; background-color: #f8d7da; border-radius: 4px; border-left: 3px solid #dc3545;">
+                <h3 style="color: #721c24; font-size: 1.1rem; margin-bottom: 0.5rem;">Rejection Reason</h3>
+                <p style="margin: 0; color: #721c24; line-height: 1.6;">{{ doctor_request.rejection_reason }}</p>
+            </div>
+        {% endif %}
+        
+        <div style="padding-top: 1.5rem; border-top: 1px solid #e9ecef; color: #6c757d; font-size: 0.9rem;">
+            <p style="margin: 0;">Requested: {{ doctor_request.created_at|date:"F d, Y H:i" }}</p>
+            {% if doctor_request.responded_at %}
+                <p style="margin: 0.25rem 0 0 0;">Responded: {{ doctor_request.responded_at|date:"F d, Y H:i" }}</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div style="text-align: center;">
+        <a href="{% url 'episodes:episode_detail' doctor_request.episode.id %}" class="btn-primary" style="display: inline-block; padding: 0.75rem 2rem; text-decoration: none;">
+            View Episode Details
+        </a>
+    </div>
+</div>
+{% endblock %}

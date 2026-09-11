@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Request Consultation - Telemedicine System{% endblock %}
+
+{% block content %}
+<div class="auth-container" style="max-width: 700px;">
+    <h2>Request a Consultation</h2>
+    <p>Please select a verified doctor and provide details about your health concern.</p>
+    
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="alert alert-error">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <div class="form-group">
+            <label for="{{ form.doctor.id_for_label }}">{{ form.doctor.label }}</label>
+            {{ form.doctor }}
+            <small class="form-text">{{ form.doctor.help_text }}</small>
+            {% if form.doctor.errors %}<div class="alert alert-error">{{ form.doctor.errors.0 }}</div>{% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.reason.id_for_label }}">{{ form.reason.label }}</label>
+            {{ form.reason }}
+            <small class="form-text">{{ form.reason.help_text }}</small>
+            {% if form.reason.errors %}<div class="alert alert-error">{{ form.reason.errors.0 }}</div>{% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.scheduled_at.id_for_label }}">{{ form.scheduled_at.label }}</label>
+            {{ form.scheduled_at }}
+            <small class="form-text">{{ form.scheduled_at.help_text }}</small>
+            {% if form.scheduled_at.errors %}<div class="alert alert-error">{{ form.scheduled_at.errors.0 }}</div>{% endif %}
+        </div>
+        
+        <button type="submit" class="btn-primary" style="margin-top: 1rem;">Submit Request</button>
+    </form>
+</div>
+{% endblock %}

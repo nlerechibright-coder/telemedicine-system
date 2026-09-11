@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}My Chats - Telemedicine System{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; padding: 2rem 1rem;">
+    <h2 style="color: #2c3e50; margin-bottom: 1.5rem;">My Chats</h2>
+    
+    {% if chat_data %}
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+            {% for chat in chat_data %}
+                <a href="{% url 'messaging:chat_view' chat.episode.id %}" style="text-decoration: none; color: inherit;">
+                    <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 1.5rem; border-left: 4px solid #3498db; transition: transform 0.2s, box-shadow 0.2s;">
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0 0 0.25rem 0; color: #2c3e50; font-size: 1.1rem;">
+                                    {{ chat.episode.title|default:"Episode #"|add:chat.episode.id }}
+                                </h3>
+                                <p style="margin: 0; color: #6c757d; font-size: 0.9rem;">
+                                    {% if chat.participant_role == 'Client' %}
+                                        With: {{ chat.other_participant_name }}
+                                    {% else %}
+                                        Client: {{ chat.other_participant_name }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            {% if chat.unread_count > 0 %}
+                                <span style="background-color: #dc3545; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">
+                                    {{ chat.unread_count }} new
+                                </span>
+                            {% endif %}
+                        </div>
+                        
+                        {% if chat.latest_message %}
+                            <div style="padding: 0.75rem; background-color: #f8f9fa; border-radius: 4px; margin-top: 0.5rem;">
+                                <div style="font-size: 0.85rem; color: #6c757d; margin-bottom: 0.25rem;">
+                                    <strong>{{ chat.latest_message.sender.email }}:</strong>
+                                    <span style="float: right; font-size: 0.8rem;">{{ chat.latest_message.sent_at|date:"M d, H:i" }}</span>
+                                </div>
+                                <div style="color: #495057; font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    {{ chat.latest_message.content|truncatechars:100 }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div style="padding: 0.75rem; background-color: #f8f9fa; border-radius: 4px; margin-top: 0.5rem; color: #6c757d; font-style: italic;">
+                                No messages yet. Start the conversation!
+                            </div>
+                        {% endif %}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="background-color: #f8f9fa; padding: 3rem; border-radius: 8px; text-align: center;">
+            <p style="color: #6c757d; font-size: 1.1rem; margin-bottom: 1rem;">You don't have any active chats yet.</p>
+            <p style="color: #6c757d; font-size: 0.95rem;">
+                {% if user.is_client %}
+                    Chats become available when a doctor accepts your consultation request.
+                {% else %}
+                    Chats become available when you accept a patient's consultation request.
+                {% endif %}
+            </p>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    /* Hover effect for chat cards */
+    div[style*="transition: transform"] {
+        cursor: pointer;
+    }
+    div[style*="transition: transform"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+    }
+</style>
+{% endblock %}

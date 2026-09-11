@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Health Articles - Telemedicine System{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto; padding: 2rem 1rem;">
+    <h2 style="margin-bottom: 1.5rem; color: #2c3e50;">Health Knowledge Base</h2>
+    
+    <!-- Search and Filter Form -->
+    <div style="background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 2rem;">
+        <form method="get" action="{% url 'knowledge_base:article_list' %}" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <div style="flex: 2; min-width: 200px;">
+                <label for="{{ form.search.id_for_label }}" style="font-weight: 600; color: #333; margin-bottom: 0.5rem; display: block;">Search</label>
+                {{ form.search }}
+            </div>
+            <div style="flex: 1; min-width: 150px;">
+                <label for="{{ form.category.id_for_label }}" style="font-weight: 600; color: #333; margin-bottom: 0.5rem; display: block;">Category</label>
+                {{ form.category }}
+            </div>
+            <div style="display: flex; align-items: flex-end;">
+                <button type="submit" class="btn-primary" style="width: auto; padding: 0.75rem 1.5rem;">Search</button>
+                <a href="{% url 'knowledge_base:article_list' %}" class="btn-primary" style="width: auto; padding: 0.75rem 1.5rem; background-color: #95a5a6; text-decoration: none; margin-left: 0.5rem;">Clear</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Articles Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+        {% for article in articles %}
+            <div style="background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column;">
+                <div style="padding: 1.5rem; flex: 1;">
+                    <span style="display: inline-block; background-color: #e8f4f8; color: #3498db; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem;">
+                        {{ article.category.name }}
+                    </span>
+                    <h3 style="margin: 0 0 0.75rem 0; font-size: 1.25rem; color: #2c3e50;">
+                        <a href="{% url 'knowledge_base:article_detail' article.slug %}" style="text-decoration: none; color: inherit;">
+                            {{ article.title }}
+                        </a>
+                    </h3>
+                    <p style="color: #666; font-size: 0.95rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                        {{ article.content|truncatewords:30 }}
+                    </p>
+                </div>
+                <div style="padding: 1rem 1.5rem; background-color: #f8f9fa; border-top: 1px solid #eee; font-size: 0.85rem; color: #888;">
+                    {% if article.author %}
+                        By {{ article.author.email }} • 
+                    {% endif %}
+                    {{ article.published_at|date:"M d, Y" }}
+                </div>
+            </div>
+        {% empty %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background-color: white; border-radius: 8px;">
+                <p style="color: #666; font-size: 1.1rem;">No articles found matching your search criteria.</p>
+                <a href="{% url 'knowledge_base:article_list' %}" style="color: #3498db; text-decoration: none; font-weight: 600;">Clear filters</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

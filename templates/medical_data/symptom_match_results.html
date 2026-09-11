@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}Symptom Check Results - Telemedicine System{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem;">
+    <a href="{% url 'medical_data:symptom_select' %}" style="display: inline-flex; align-items: center; color: #3498db; text-decoration: none; font-weight: 600; margin-bottom: 1.5rem;">
+        ← Back to Symptom Selection
+    </a>
+
+    <h2 style="color: #2c3e50; margin-bottom: 1rem;">Symptom Check Results</h2>
+    
+    <div style="background-color: #e8f4f8; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid #3498db;">
+        <strong style="color: #2c3e50;">You selected:</strong> 
+        <span style="color: #555;">
+            {% for symptom in selected_symptoms %}
+                {{ symptom.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </span>
+    </div>
+
+    <!-- EPISODE SAVED NOTIFICATION -->
+    {% if episode %}
+    <div style="background-color: #d4edda; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #28a745; display: flex; align-items: flex-start; gap: 0.75rem;">
+        <span style="font-size: 1.25rem; line-height: 1;">✅</span>
+        <div>
+            <strong style="color: #155724;">Saved to your health records.</strong>
+            <p style="color: #155724; margin: 0.25rem 0 0 0; font-size: 0.95rem;">
+                This symptom check has been securely recorded as <strong>Episode #{{ episode.id }}</strong> ({{ episode.get_status_display }}). 
+                You can reference this episode ID when requesting a doctor consultation.
+            </p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- EMERGENCY WARNING SECTION -->
+    {% if has_emergency %}
+        <div style="background-color: #f8d7da; border: 2px solid #f5c6cb; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+            <h3 style="color: #721c24; margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+                🚨 URGENT MEDICAL ATTENTION REQUIRED
+            </h3>
+            {% for warning in emergency_messages %}
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f5c6cb;">
+                    <strong style="color: #721c24;">{{ warning.symptom_name }}:</strong>
+                    <p style="color: #721c24; margin: 0.5rem 0 0 0; font-weight: 500;">{{ warning.message }}</p>
+                </div>
+            {% endfor %}
+            <p style="color: #721c24; font-weight: 600; margin-top: 1rem;">
+                Please do not rely on this system for emergency care. Call your local emergency services or go to the nearest hospital immediately.
+            </p>
+        </div>
+    {% endif %}
+
+    <!-- MATCHING RESULTS SECTION -->
+    <h3 style="color: #2c3e50; margin-bottom: 1rem; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem;">
+        These symptoms may be associated with the following conditions:
+    </h3>
+    <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; font-style: italic;">
+        This is an informational tool based on symptom patterns. It is not a diagnosis. Only a qualified healthcare professional can diagnose your condition.
+    </p>
+
+    {% if no_matches %}
+        <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 8px; text-align: center; color: #666;">
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;">No specific conditions matched your selected symptoms in our database.</p>
+            <p>If your symptoms are severe or persistent, please <a href="{% url 'consultations:request_consultation' %}" style="color: #3498db; font-weight: 600;">request a consultation</a> with a doctor.</p>
+        </div>
+    {% else %}
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            {% for condition_data in matched_conditions %}
+                <div style="background-color: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                        <h4 style="color: #2c3e50; margin: 0; font-size: 1.25rem;">{{ condition_data.condition.name }}</h4>
+                        <div style="text-align: right;">
+                            <span style="display: block; font-size: 0.85rem; color: #666;">Match Score</span>
+                            <span style="font-size: 1.25rem; font-weight: 700; color: #3498db;">{{ condition_data.total_score }}</span>
+                        </div>
+                    </div>
+                    
+                    <p style="color: #555; margin-bottom: 1rem;">{{ condition_data.condition.description }}</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <strong style="color: #2c3e50; font-size: 0.9rem;">Matched Symptoms:</strong>
+                            <ul style="margin: 0.5rem 0 0 0; padding-left: 1.2rem; color: #555; font-size: 0.95rem;">
+                                {% for symptom in condition_data.matched_symptoms %}
+                                    <li>
+                                        {{ symptom.name }} 
+                                        {% if symptom.is_core %}<span style="color: #28a745; font-size: 0.8rem; font-weight: 600;">(Core)</span>{% endif %}
+                                        <span style="color: #888; font-size: 0.85rem;">(weight: {{ symptom.weight }})</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div>
+                            <strong style="color: #2c3e50; font-size: 0.9rem;">Symptom Coverage:</strong>
+                            <p style="margin: 0.5rem 0 0 0; color: #555; font-size: 0.95rem;">
+                                You matched {{ condition_data.matched_symptoms|length }} out of the known symptoms for this condition ({{ condition_data.coverage }}% coverage).
+                            </p>
+                        </div>
+                    </div>
+
+                    {% if condition_data.articles %}
+                        <div style="background-color: #f8f9fa; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                            <strong style="color: #2c3e50; font-size: 0.9rem;">Learn More:</strong>
+                            <ul style="margin: 0.5rem 0 0 0; padding-left: 1.2rem;">
+                                {% for article in condition_data.articles %}
+                                    <li style="margin-bottom: 0.25rem;">
+                                        <a href="{% url 'knowledge_base:article_detail' article.slug %}" style="color: #3498db; text-decoration: none; font-weight: 500;">
+                                            {{ article.title }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div style="margin-top: 2rem; text-align: center; padding: 1.5rem; background-color: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107;">
+            <p style="color: #856404; margin: 0 0 1rem 0; font-weight: 600;">Still unsure or feeling unwell?</p>
+            <a href="{% url 'consultations:request_consultation' %}" class="btn-primary" style="width: auto; padding: 0.75rem 1.5rem; text-decoration: none; display: inline-block;">Request a Doctor Consultation</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
