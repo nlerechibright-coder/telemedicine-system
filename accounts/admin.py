@@ -1,6 +1,69 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django import forms
+from django.core.exceptions import ValidationError
+from django.forms.models import BaseInlineFormSet
 from .models import CustomUser
+from doctors.models import DoctorProfile
+
+
+class DoctorProfileInlineForm(forms.ModelForm):
+    class Meta:
+        model = DoctorProfile
+        fields = (
+            'specialty',
+            'license_number',
+            'qualifications',
+            'bio',
+            'consultation_fee',
+            'whatsapp_number',
+            'availability_status',
+            'is_verified',
+        )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.instance.pk:
+            self.initial['availability_status'] = ''
+        for field_name in ('specialty', 'license_number', 'qualifications', 'consultation_fee', 'availability_status'):
+            self.fields[field_name].required = False
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if not self.has_changed():
+            return cleaned_data
+
+        required_fields = ('specialty', 'license_number', 'qualifications', 'consultation_fee', 'availability_status')
+        for field_name in required_fields:
+            if not cleaned_data.get(field_name):
+                self.add_error(field_name, 'This field is required for a doctor profile.')
+        return cleaned_data
+
+
+class DoctorProfileInlineFormSet(BaseInlineFormSet):
+    def clean(self):
+        super().clean()
+        if self.instance.is_doctor and not any(form.has_changed() and not form.cleaned_data.get('DELETE') for form in self.forms):
+            raise ValidationError('A doctor must have a completed Doctor Profile.')
+
+
+class DoctorProfileInline(admin.StackedInline):
+    model = DoctorProfile
+    form = DoctorProfileInlineForm
+    formset = DoctorProfileInlineFormSet
+    extra = 1
+    max_num = 1
+    can_delete = False
+    fields = (
+        'specialty',
+        'license_number',
+        'qualifications',
+        'bio',
+        'consultation_fee',
+        'whatsapp_number',
+        'availability_status',
+        'is_verified',
+    )
 
 
 @admin.register(CustomUser)
@@ -42,3 +105,5 @@ class CustomUserAdmin(UserAdmin):
     
     # Make password field read-only in the edit view (since it's hashed)
     readonly_fields = ('last_login', 'date_joined')
+
+    inlines = (DoctorProfileInline,)
