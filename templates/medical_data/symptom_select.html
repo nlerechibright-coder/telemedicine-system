@@ -24,9 +24,9 @@
                 </p>
                 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem;">
                     {% for symptom in red_flag_symptoms %}
-                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem; background-color: white; border-radius: 4px; border: 1px solid #ffeeba;">
-                            <input type="checkbox" name="symptoms" value="{{ symptom.id }}" style="accent-color: #dc3545; transform: scale(1.2);">
-                            <span style="font-weight: 600; color: #856404;">{{ symptom.name }}</span>
+                        <label for="symptom_{{ symptom.id }}" style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background-color: white; border-radius: 6px; border: 1px solid #ffeeba; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none;">
+                            <input type="checkbox" id="symptom_{{ symptom.id }}" name="symptoms" value="{{ symptom.id }}" style="accent-color: #dc3545; width: 1.2em; height: 1.2em; flex-shrink: 0; pointer-events: none;">
+                            <span style="font-weight: 600; color: #856404; pointer-events: none;">{{ symptom.name }}</span>
                         </label>
                     {% endfor %}
                 </div>
@@ -39,21 +39,21 @@
             
             <!-- Simple Search/Filter for symptoms (client-side JS) -->
             <input type="text" id="symptomSearch" placeholder="Search symptoms..." 
-                   style="width: 100%; padding: 0.75rem; border: 1px solid #ced4da; border-radius: 4px; margin-bottom: 1rem; font-size: 1rem;">
+                   style="width: 100%; padding: 0.75rem; border: 1px solid #ced4da; border-radius: 6px; margin-bottom: 1rem; font-size: 1rem; box-sizing: border-box;">
             
-            <div id="symptomList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem; max-height: 400px; overflow-y: auto; padding-right: 0.5rem;">
+            <div id="symptomList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem; max-height: 400px; overflow-y: auto; padding-right: 0.5rem; -webkit-overflow-scrolling: touch;">
                 {% for symptom in normal_symptoms %}
-                    <label class="symptom-item" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem; background-color: #f8f9fa; border-radius: 4px; border: 1px solid #e9ecef; transition: background-color 0.2s;">
-                        <input type="checkbox" name="symptoms" value="{{ symptom.id }}" style="accent-color: #3498db; transform: scale(1.1);">
-                        <span>{{ symptom.name }}</span>
+                    <label for="symptom_{{ symptom.id }}" class="symptom-item" style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background-color: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef; transition: background-color 0.2s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none;">
+                        <input type="checkbox" id="symptom_{{ symptom.id }}" name="symptoms" value="{{ symptom.id }}" style="accent-color: #3498db; width: 1.2em; height: 1.2em; flex-shrink: 0; pointer-events: none;">
+                        <span style="font-weight: 500; color: #2c3e50; pointer-events: none;">{{ symptom.name }}</span>
                     </label>
                 {% endfor %}
             </div>
         </div>
 
-        <div style="display: flex; gap: 1rem; justify-content: flex-end;">
-            <a href="{% url 'home' %}" class="btn-primary" style="width: auto; padding: 0.75rem 1.5rem; text-decoration: none; display: inline-block; background-color: #95a5a6;">Cancel</a>
-            <button type="submit" class="btn-primary" style="width: auto; padding: 0.75rem 2rem;">Check Symptoms</button>
+        <div style="display: flex; gap: 1rem; justify-content: flex-end; flex-wrap: wrap;">
+            <a href="{% url 'home' %}" class="btn-primary" style="flex: 1; max-width: 200px; padding: 0.85rem 1.5rem; text-decoration: none; display: inline-block; background-color: #95a5a6; color: white; text-align: center; border-radius: 6px; font-weight: 600;">Cancel</a>
+            <button type="submit" class="btn-primary" style="flex: 1; max-width: 200px; padding: 0.85rem 2rem; background-color: #3498db; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Check Symptoms</button>
         </div>
     </form>
 </div>
