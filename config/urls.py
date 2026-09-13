@@ -12,6 +12,9 @@ from django.conf.urls.static import static
 # Import our dynamic home view
 from .views import home_view
 
+# Import temporary seeding view (TO BE REMOVED AFTER USE)
+from medical_data.views import seed_db_temp_view
+
 urlpatterns = [
     # Django Admin Interface
     path('admin/', admin.site.urls),
@@ -39,6 +42,9 @@ urlpatterns = [
     
     # Messaging App (Chat)
     path('messaging/', include('messaging.urls')),
+    
+    # Temporary Database Seeder (TO BE REMOVED AFTER USE)
+    path('seed-db-temp/', seed_db_temp_view, name='seed_db_temp'),
     
     # Dynamic Home Page (Shows role-specific stats and notifications)
     path('', home_view, name='home'),
