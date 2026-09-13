@@ -200,6 +200,63 @@ footer {
     background-color: #2980b9;
 }
 
+/* Symptom checker */
+.symptom-count {
+    color: #5f6b76;
+    font-size: 0.9rem;
+    margin: -0.5rem 0 1rem;
+}
+
+.symptom-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    gap: 0.75rem;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.symptom-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 44px;
+    padding: 0.75rem;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    color: #2c3e50;
+    transition: background-color 0.2s, border-color 0.2s;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.symptom-item:hover,
+.symptom-item:has(input:checked) {
+    background-color: #eaf4fb;
+    border-color: #3498db;
+}
+
+.symptom-item input {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: 0 0 auto;
+    accent-color: #3498db;
+}
+
+.symptom-empty {
+    grid-column: 1 / -1;
+    color: #6c757d;
+    margin: 0;
+}
+
+.symptom-item[hidden] {
+    display: none;
+}
+
 .auth-footer {
     text-align: center;
     margin-top: 1.5rem;
@@ -228,5 +285,16 @@ footer {
         flex-direction: column;
         gap: 0.5rem;
         text-align: center;
+    }
+
+    .symptom-section {
+        padding: 1rem !important;
+    }
+
+    .symptom-list {
+        grid-template-columns: 1fr;
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
     }
 }

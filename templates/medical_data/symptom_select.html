@@ -34,20 +34,27 @@
         {% endif %}
 
         <!-- Normal Symptoms Section -->
-        <div style="background-color: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+        <div class="symptom-section" style="background-color: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
             <h3 style="color: #2c3e50; margin-top: 0; margin-bottom: 1rem;">General Symptoms</h3>
+            {% if normal_symptoms %}
+                <p class="symptom-count" aria-live="polite">{{ normal_symptoms|length }} symptoms available. Select all that apply.</p>
+            {% endif %}
             
             <!-- Simple Search/Filter for symptoms (client-side JS) -->
             <input type="text" id="symptomSearch" placeholder="Search symptoms..." 
                    style="width: 100%; padding: 0.75rem; border: 1px solid #ced4da; border-radius: 6px; margin-bottom: 1rem; font-size: 1rem; box-sizing: border-box;">
             
-            <div id="symptomList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem; max-height: 400px; overflow-y: auto; padding-right: 0.5rem; -webkit-overflow-scrolling: touch;">
-                {% for symptom in normal_symptoms %}
-                    <label for="symptom_{{ symptom.id }}" class="symptom-item" style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.75rem; background-color: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef; transition: background-color 0.2s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none;">
-                        <input type="checkbox" id="symptom_{{ symptom.id }}" name="symptoms" value="{{ symptom.id }}" style="accent-color: #3498db; width: 1.2em; height: 1.2em; flex-shrink: 0; pointer-events: none;">
-                        <span style="font-weight: 500; color: #2c3e50; pointer-events: none;">{{ symptom.name }}</span>
-                    </label>
-                {% endfor %}
+            <div id="symptomList" class="symptom-list">
+                {% if normal_symptoms %}
+                    {% for symptom in normal_symptoms %}
+                        <label for="symptom_{{ symptom.id }}" class="symptom-item">
+                            <input type="checkbox" id="symptom_{{ symptom.id }}" name="symptoms" value="{{ symptom.id }}">
+                            <span>{{ symptom.name }}</span>
+                        </label>
+                    {% endfor %}
+                {% else %}
+                    <p class="symptom-empty">No symptoms found in database.</p>
+                {% endif %}
             </div>
         </div>
 
@@ -60,17 +67,15 @@
 
 <script>
     // Simple client-side search filter for symptoms
-    document.getElementById('symptomSearch').addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase();
-        const items = document.querySelectorAll('.symptom-item');
-        
-        items.forEach(item => {
-            const text = item.textContent.toLowerCase();
-            if (text.includes(searchTerm)) {
-                item.style.display = 'flex';
-            } else {
-                item.style.display = 'none';
-            }
+    const symptomSearch = document.getElementById('symptomSearch');
+    const symptomItems = document.querySelectorAll('.symptom-item');
+
+    symptomSearch.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.trim().toLowerCase();
+
+        symptomItems.forEach(item => {
+            const symptomName = item.querySelector('span').textContent.toLowerCase();
+            item.hidden = !symptomName.includes(searchTerm);
         });
     });
 </script>
