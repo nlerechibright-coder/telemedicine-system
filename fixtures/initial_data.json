@@ -1,0 +1,3646 @@
+[
+{
+  "model": "accounts.customuser",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$U33Yp8PhMgW0DsWrv3yJHQ$VNwRuZFlF6gwkV2+ZgNHSlyBWU0AOAYPEXV0TC/Gd/I=",
+    "is_superuser": true,
+    "email": "nlerechibright@gmail.com",
+    "role": "ADMIN",
+    "is_active": true,
+    "is_staff": true,
+    "date_joined": "2026-09-01T09:32:33.539Z",
+    "last_login": "2026-09-07T08:19:35.757Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.customuser",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$hKMiTjqyDvQhG5QUf0HLTF$psZm3/4CAxC2BxrIkIkqjxYjpZ9Mp8MTTq9/FQjN2v4=",
+    "is_superuser": false,
+    "email": "mennywizzy1@gmail.com",
+    "role": "CLIENT",
+    "is_active": true,
+    "is_staff": false,
+    "date_joined": "2026-09-03T08:07:11.708Z",
+    "last_login": "2026-09-11T00:03:43.740Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.customuser",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$U56E2NQ6o9W9MvW5QXsNl5$R0jaQoNgCZex91hP5xYgPLOgHHF1pf2H7+ABJcfhkZE=",
+    "is_superuser": false,
+    "email": "bnlerechi@gmail.com",
+    "role": "DOCTOR",
+    "is_active": true,
+    "is_staff": true,
+    "date_joined": "2026-09-03T11:52:37.785Z",
+    "last_login": "2026-09-11T00:11:48.081Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "clients.clientprofile",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "full_name": "Emeka",
+    "date_of_birth": "2026-02-03",
+    "gender": "MALE",
+    "phone_number": "+234 8029011944",
+    "whatsapp_number": "+234 8029011944",
+    "address": "omuanwa",
+    "blood_type": "A+",
+    "chronic_conditions": "cough",
+    "allergies": "",
+    "current_medications": "paracitamol",
+    "created_at": "2026-09-03T11:24:22.581Z",
+    "updated_at": "2026-09-10T23:58:26.240Z"
+  }
+},
+{
+  "model": "doctors.specialty",
+  "pk": 1,
+  "fields": {
+    "name": "General Practice",
+    "description": "Primary care and general health consultations"
+  }
+},
+{
+  "model": "doctors.doctorprofile",
+  "pk": 1,
+  "fields": {
+    "user": 3,
+    "specialty": 1,
+    "license_number": "MED-12345",
+    "qualifications": "PHD in Medicine & Surgery",
+    "bio": "Menny-wizzy of barcelona",
+    "consultation_fee": "5000.00",
+    "whatsapp_number": "08067327057",
+    "availability_status": "AVAILABLE",
+    "is_verified": true,
+    "created_at": "2026-09-03T11:56:57.664Z",
+    "updated_at": "2026-09-11T00:02:52.663Z"
+  }
+},
+{
+  "model": "knowledge_base.category",
+  "pk": 1,
+  "fields": {
+    "name": "General Health",
+    "description": "General wellness and preventative care information."
+  }
+},
+{
+  "model": "knowledge_base.article",
+  "pk": 1,
+  "fields": {
+    "title": "How to Stay Hydrated",
+    "slug": "how-to-stay-hydrated",
+    "category": 1,
+    "content": "Drinking enough water is essential for your overall health. Aim for at least 8 glasses a day. Remember to increase your intake during hot weather or physical activity.",
+    "author": 3,
+    "is_published": true,
+    "published_at": "2026-09-03T12:54:44Z",
+    "created_at": "2026-09-03T12:55:03.734Z",
+    "updated_at": "2026-09-03T12:55:03.734Z"
+  }
+},
+{
+  "model": "consultations.consultation",
+  "pk": 1,
+  "fields": {
+    "client": 2,
+    "doctor": 3,
+    "reason": "I have been experiencing mild headaches for the past 3 days",
+    "doctor_notes": "Hello, I am available for a call tomorrow at 10 AM.",
+    "status": "ACCEPTED",
+    "scheduled_at": "2026-09-04T01:36:00Z",
+    "rejection_reason": "",
+    "created_at": "2026-09-04T08:40:54.495Z",
+    "updated_at": "2026-09-04T08:44:09.606Z"
+  }
+},
+{
+  "model": "consultations.consultation",
+  "pk": 2,
+  "fields": {
+    "client": 2,
+    "doctor": 3,
+    "reason": "lol",
+    "doctor_notes": "",
+    "status": "PENDING",
+    "scheduled_at": "2026-10-10T06:52:00Z",
+    "rejection_reason": "",
+    "created_at": "2026-09-05T13:52:33.322Z",
+    "updated_at": "2026-09-05T13:52:33.322Z"
+  }
+},
+{
+  "model": "consultations.consultation",
+  "pk": 3,
+  "fields": {
+    "client": 2,
+    "doctor": 3,
+    "reason": "stomach",
+    "doctor_notes": "fiubin",
+    "status": "ACCEPTED",
+    "scheduled_at": "2026-09-05T06:53:00Z",
+    "rejection_reason": "",
+    "created_at": "2026-09-05T13:53:44.812Z",
+    "updated_at": "2026-09-05T13:56:19.972Z"
+  }
+},
+{
+  "model": "consultations.consultation",
+  "pk": 4,
+  "fields": {
+    "client": 2,
+    "doctor": 3,
+    "reason": "I am feeling so tired",
+    "doctor_notes": "lets talk",
+    "status": "ACCEPTED",
+    "scheduled_at": "2026-09-07T00:36:00Z",
+    "rejection_reason": "",
+    "created_at": "2026-09-07T07:36:35.339Z",
+    "updated_at": "2026-09-07T07:38:00.843Z"
+  }
+},
+{
+  "model": "consultations.consultation",
+  "pk": 5,
+  "fields": {
+    "client": 2,
+    "doctor": 3,
+    "reason": "cough",
+    "doctor_notes": "",
+    "status": "PENDING",
+    "scheduled_at": "2026-10-02T01:00:00Z",
+    "rejection_reason": "",
+    "created_at": "2026-09-07T08:00:57.233Z",
+    "updated_at": "2026-09-07T08:00:57.233Z"
+  }
+},
+{
+  "model": "consultations.consultation",
+  "pk": 6,
+  "fields": {
+    "client": 2,
+    "doctor": 3,
+    "reason": "crying",
+    "doctor_notes": "lets talk",
+    "status": "ACCEPTED",
+    "scheduled_at": "2026-09-08T01:01:00Z",
+    "rejection_reason": "",
+    "created_at": "2026-09-07T08:02:07.439Z",
+    "updated_at": "2026-09-07T08:03:11.526Z"
+  }
+},
+{
+  "model": "consultations.consultation",
+  "pk": 7,
+  "fields": {
+    "client": 2,
+    "doctor": 3,
+    "reason": "cold",
+    "doctor_notes": "",
+    "status": "PENDING",
+    "scheduled_at": null,
+    "rejection_reason": "",
+    "created_at": "2026-09-07T08:44:27.066Z",
+    "updated_at": "2026-09-07T08:44:27.066Z"
+  }
+},
+{
+  "model": "consultations.consultation",
+  "pk": 8,
+  "fields": {
+    "client": 2,
+    "doctor": 3,
+    "reason": "bfhfhfh",
+    "doctor_notes": "",
+    "status": "PENDING",
+    "scheduled_at": "2026-09-25T15:52:00Z",
+    "rejection_reason": "",
+    "created_at": "2026-09-10T22:52:58.377Z",
+    "updated_at": "2026-09-10T22:52:58.377Z"
+  }
+},
+{
+  "model": "consultations.consultation",
+  "pk": 9,
+  "fields": {
+    "client": 2,
+    "doctor": 3,
+    "reason": "cough",
+    "doctor_notes": "",
+    "status": "PENDING",
+    "scheduled_at": "2026-09-10T15:54:00Z",
+    "rejection_reason": "",
+    "created_at": "2026-09-10T22:54:50.109Z",
+    "updated_at": "2026-09-10T22:54:50.109Z"
+  }
+},
+{
+  "model": "consultations.consultation",
+  "pk": 10,
+  "fields": {
+    "client": 2,
+    "doctor": 3,
+    "reason": "cough",
+    "doctor_notes": "",
+    "status": "PENDING",
+    "scheduled_at": "2026-09-10T18:04:00Z",
+    "rejection_reason": "",
+    "created_at": "2026-09-10T23:05:17.802Z",
+    "updated_at": "2026-09-10T23:05:17.802Z"
+  }
+},
+{
+  "model": "consultations.consultation",
+  "pk": 11,
+  "fields": {
+    "client": 2,
+    "doctor": 3,
+    "reason": "cough",
+    "doctor_notes": "",
+    "status": "PENDING",
+    "scheduled_at": "2026-09-10T18:04:00Z",
+    "rejection_reason": "",
+    "created_at": "2026-09-10T23:05:18.052Z",
+    "updated_at": "2026-09-10T23:05:18.052Z"
+  }
+},
+{
+  "model": "consultations.consultation",
+  "pk": 12,
+  "fields": {
+    "client": 2,
+    "doctor": 3,
+    "reason": "nSsnfnscnsn",
+    "doctor_notes": "",
+    "status": "PENDING",
+    "scheduled_at": "2026-09-10T16:16:00Z",
+    "rejection_reason": "",
+    "created_at": "2026-09-10T23:16:17.219Z",
+    "updated_at": "2026-09-10T23:16:17.219Z"
+  }
+},
+{
+  "model": "consultations.message",
+  "pk": 1,
+  "fields": {
+    "consultation": 1,
+    "sender": 3,
+    "content": "Hello, I am available for a call tomorrow at 10 AM.",
+    "is_read": false,
+    "sent_at": "2026-09-04T08:44:26.456Z"
+  }
+},
+{
+  "model": "consultations.message",
+  "pk": 2,
+  "fields": {
+    "consultation": 1,
+    "sender": 2,
+    "content": "hello im menny-wizzy of barcelona",
+    "is_read": false,
+    "sent_at": "2026-09-04T08:45:23.797Z"
+  }
+},
+{
+  "model": "consultations.message",
+  "pk": 3,
+  "fields": {
+    "consultation": 3,
+    "sender": 3,
+    "content": "hi",
+    "is_read": false,
+    "sent_at": "2026-09-05T13:56:36.806Z"
+  }
+},
+{
+  "model": "consultations.message",
+  "pk": 4,
+  "fields": {
+    "consultation": 4,
+    "sender": 3,
+    "content": "since when it started?",
+    "is_read": false,
+    "sent_at": "2026-09-07T07:38:25.973Z"
+  }
+},
+{
+  "model": "consultations.message",
+  "pk": 5,
+  "fields": {
+    "consultation": 4,
+    "sender": 2,
+    "content": "this morning and im feeling headache",
+    "is_read": false,
+    "sent_at": "2026-09-07T07:39:45.838Z"
+  }
+},
+{
+  "model": "consultations.message",
+  "pk": 6,
+  "fields": {
+    "consultation": 4,
+    "sender": 2,
+    "content": "are u still there?",
+    "is_read": false,
+    "sent_at": "2026-09-07T07:50:41.049Z"
+  }
+},
+{
+  "model": "consultations.message",
+  "pk": 7,
+  "fields": {
+    "consultation": 6,
+    "sender": 3,
+    "content": "how are you feeling now",
+    "is_read": false,
+    "sent_at": "2026-09-07T08:03:39.713Z"
+  }
+},
+{
+  "model": "messaging.chatroom",
+  "pk": 1,
+  "fields": {
+    "episode": 1,
+    "created_at": "2026-09-07T08:20:40.774Z"
+  }
+},
+{
+  "model": "messaging.chatroom",
+  "pk": 2,
+  "fields": {
+    "episode": 2,
+    "created_at": "2026-09-10T23:24:45.420Z"
+  }
+},
+{
+  "model": "messaging.chatroom",
+  "pk": 3,
+  "fields": {
+    "episode": 3,
+    "created_at": "2026-09-10T23:25:00.985Z"
+  }
+},
+{
+  "model": "messaging.chatroom",
+  "pk": 4,
+  "fields": {
+    "episode": 4,
+    "created_at": "2026-09-10T23:29:28.958Z"
+  }
+},
+{
+  "model": "messaging.chatmessage",
+  "pk": 1,
+  "fields": {
+    "room": 1,
+    "sender": 2,
+    "content": "hi",
+    "sent_at": "2026-09-07T08:43:12.140Z",
+    "is_read": false
+  }
+},
+{
+  "model": "messaging.chatmessage",
+  "pk": 2,
+  "fields": {
+    "room": 2,
+    "sender": 2,
+    "content": "Live persistence verification",
+    "sent_at": "2026-09-10T23:24:45.584Z",
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.chatmessage",
+  "pk": 3,
+  "fields": {
+    "room": 3,
+    "sender": 2,
+    "content": "Live persistence verification",
+    "sent_at": "2026-09-10T23:25:01.165Z",
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.chatmessage",
+  "pk": 4,
+  "fields": {
+    "room": 4,
+    "sender": 3,
+    "content": "hi",
+    "sent_at": "2026-09-10T23:36:40.040Z",
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.chatmessage",
+  "pk": 5,
+  "fields": {
+    "room": 4,
+    "sender": 3,
+    "content": "i am feeling stomach pain",
+    "sent_at": "2026-09-10T23:37:19.915Z",
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.chatmessage",
+  "pk": 6,
+  "fields": {
+    "room": 4,
+    "sender": 2,
+    "content": "i am Dr. Menny-wizzy of Barcelona",
+    "sent_at": "2026-09-10T23:38:43.044Z",
+    "is_read": true
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 1,
+  "fields": {
+    "name": "Severe Chest Pain",
+    "description": "Intense pain in the chest area.",
+    "is_red_flag": true,
+    "emergency_message": "Severe chest pain can be a sign of a heart attack. Call emergency services immediately"
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 2,
+  "fields": {
+    "name": "Severe chest pain",
+    "description": "Intense pain or pressure in the chest, possibly radiating to arms, neck, or jaw.",
+    "is_red_flag": true,
+    "emergency_message": "Severe chest pain can indicate a heart attack or other life-threatening condition. Call emergency services immediately."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 3,
+  "fields": {
+    "name": "Sudden severe headache",
+    "description": "An extremely intense headache that appears suddenly, often described as the worst headache of my life.",
+    "is_red_flag": true,
+    "emergency_message": "A sudden severe headache could indicate a stroke or brain hemorrhage. Seek emergency medical care immediately."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 4,
+  "fields": {
+    "name": "Severe difficulty breathing",
+    "description": "Inability to breathe properly, gasping for air, or feeling of suffocation.",
+    "is_red_flag": true,
+    "emergency_message": "Severe difficulty breathing is a medical emergency. Call emergency services or go to the nearest hospital immediately."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 5,
+  "fields": {
+    "name": "Loss of consciousness",
+    "description": "Fainting or complete loss of awareness.",
+    "is_red_flag": true,
+    "emergency_message": "Loss of consciousness requires immediate emergency medical attention. Call emergency services."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 6,
+  "fields": {
+    "name": "Severe uncontrolled bleeding",
+    "description": "Heavy bleeding that does not stop with direct pressure.",
+    "is_red_flag": true,
+    "emergency_message": "Uncontrolled bleeding is a medical emergency. Apply direct pressure and seek emergency care immediately."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 7,
+  "fields": {
+    "name": "Thoughts of self-harm",
+    "description": "Thoughts of hurting oneself or ending ones life.",
+    "is_red_flag": true,
+    "emergency_message": "If you are having thoughts of self-harm, please reach out for help immediately. Contact a crisis helpline or go to the nearest emergency room."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 8,
+  "fields": {
+    "name": "Sudden confusion or disorientation",
+    "description": "Abrupt inability to think clearly, recognize people or places, or speak coherently.",
+    "is_red_flag": true,
+    "emergency_message": "Sudden confusion may indicate a stroke or other serious neurological emergency. Seek immediate medical care."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 9,
+  "fields": {
+    "name": "High fever with stiff neck",
+    "description": "High temperature combined with inability to bend the neck forward.",
+    "is_red_flag": true,
+    "emergency_message": "High fever with a stiff neck may indicate meningitis. Seek emergency medical care immediately."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 10,
+  "fields": {
+    "name": "Seizures",
+    "description": "Uncontrolled electrical disturbance in the brain causing changes in behavior, movements, or consciousness.",
+    "is_red_flag": true,
+    "emergency_message": "Seizures require immediate medical attention. If this is a first-time seizure or lasts more than 5 minutes, call emergency services."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 11,
+  "fields": {
+    "name": "Severe abdominal pain",
+    "description": "Intense pain in the abdomen that is sudden and severe.",
+    "is_red_flag": true,
+    "emergency_message": "Severe abdominal pain may indicate a surgical emergency such as appendicitis. Seek immediate medical care."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 12,
+  "fields": {
+    "name": "Fever",
+    "description": "Elevated body temperature above the normal range.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 13,
+  "fields": {
+    "name": "Headache",
+    "description": "Pain in the head or upper neck.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 14,
+  "fields": {
+    "name": "Fatigue",
+    "description": "Persistent tiredness or exhaustion not relieved by rest.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 15,
+  "fields": {
+    "name": "Weakness",
+    "description": "Lack of physical strength or energy.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 16,
+  "fields": {
+    "name": "Body aches",
+    "description": "Generalized muscle pain and discomfort.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 17,
+  "fields": {
+    "name": "Chills",
+    "description": "Feeling of coldness often accompanied by shivering.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 18,
+  "fields": {
+    "name": "Sweating",
+    "description": "Excessive perspiration.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 19,
+  "fields": {
+    "name": "Loss of appetite",
+    "description": "Reduced desire to eat.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 20,
+  "fields": {
+    "name": "Weight loss",
+    "description": "Unintentional decrease in body weight.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 21,
+  "fields": {
+    "name": "Weight gain",
+    "description": "Unintentional increase in body weight.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 22,
+  "fields": {
+    "name": "Cough",
+    "description": "Sudden expulsion of air from the lungs.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 23,
+  "fields": {
+    "name": "Sore throat",
+    "description": "Pain or irritation in the throat.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 24,
+  "fields": {
+    "name": "Runny nose",
+    "description": "Excessive nasal discharge.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 25,
+  "fields": {
+    "name": "Nasal congestion",
+    "description": "Stuffy or blocked nose.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 26,
+  "fields": {
+    "name": "Sneezing",
+    "description": "Sudden involuntary expulsion of air through the nose.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 27,
+  "fields": {
+    "name": "Shortness of breath",
+    "description": "Difficulty breathing or feeling out of breath.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 28,
+  "fields": {
+    "name": "Wheezing",
+    "description": "High-pitched whistling sound when breathing.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 29,
+  "fields": {
+    "name": "Chest tightness",
+    "description": "Feeling of constriction or pressure in the chest.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 30,
+  "fields": {
+    "name": "Nausea",
+    "description": "Feeling of sickness with an urge to vomit.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 31,
+  "fields": {
+    "name": "Vomiting",
+    "description": "Forceful expulsion of stomach contents through the mouth.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 32,
+  "fields": {
+    "name": "Diarrhea",
+    "description": "Frequent loose or watery bowel movements.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 33,
+  "fields": {
+    "name": "Abdominal pain",
+    "description": "Pain felt in the belly area.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 34,
+  "fields": {
+    "name": "Bloating",
+    "description": "Feeling of fullness and swelling in the abdomen.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 35,
+  "fields": {
+    "name": "Constipation",
+    "description": "Infrequent or difficult bowel movements.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 36,
+  "fields": {
+    "name": "Heartburn",
+    "description": "Burning sensation in the chest, usually after eating.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 37,
+  "fields": {
+    "name": "Acid reflux",
+    "description": "Backflow of stomach acid into the esophagus.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 38,
+  "fields": {
+    "name": "Dizziness",
+    "description": "Feeling lightheaded or unsteady.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 39,
+  "fields": {
+    "name": "Numbness",
+    "description": "Loss of sensation in a body part.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 40,
+  "fields": {
+    "name": "Tingling",
+    "description": "Pins-and-needles sensation.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 41,
+  "fields": {
+    "name": "Blurred vision",
+    "description": "Lack of sharpness of vision.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 42,
+  "fields": {
+    "name": "Memory problems",
+    "description": "Difficulty remembering things.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 43,
+  "fields": {
+    "name": "Tremors",
+    "description": "Involuntary shaking of a body part.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 44,
+  "fields": {
+    "name": "Joint pain",
+    "description": "Discomfort or ache in a joint.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 45,
+  "fields": {
+    "name": "Back pain",
+    "description": "Pain felt in the back.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 46,
+  "fields": {
+    "name": "Muscle pain",
+    "description": "Pain in the muscles.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 47,
+  "fields": {
+    "name": "Joint stiffness",
+    "description": "Reduced ability to move a joint freely.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 48,
+  "fields": {
+    "name": "Swelling",
+    "description": "Enlargement of a body part due to fluid accumulation.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 49,
+  "fields": {
+    "name": "Skin rash",
+    "description": "Visible change in skin texture or color.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 50,
+  "fields": {
+    "name": "Itching",
+    "description": "Uncomfortable sensation causing the desire to scratch.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 51,
+  "fields": {
+    "name": "Skin redness",
+    "description": "Red or inflamed appearance of the skin.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 52,
+  "fields": {
+    "name": "Bruising",
+    "description": "Discoloration of the skin due to bleeding underneath.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 53,
+  "fields": {
+    "name": "Dry skin",
+    "description": "Skin lacking normal moisture.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 54,
+  "fields": {
+    "name": "Frequent urination",
+    "description": "Need to urinate more often than usual.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 55,
+  "fields": {
+    "name": "Painful urination",
+    "description": "Burning or pain during urination.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 56,
+  "fields": {
+    "name": "Blood in urine",
+    "description": "Presence of blood in the urine.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 57,
+  "fields": {
+    "name": "Dark urine",
+    "description": "Urine that is darker than normal in color.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 58,
+  "fields": {
+    "name": "Anxiety",
+    "description": "Feeling of worry, nervousness, or unease.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 59,
+  "fields": {
+    "name": "Depressed mood",
+    "description": "Persistent feeling of sadness or loss of interest.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 60,
+  "fields": {
+    "name": "Insomnia",
+    "description": "Difficulty falling or staying asleep.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 61,
+  "fields": {
+    "name": "Irritability",
+    "description": "Easily annoyed or angered.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 62,
+  "fields": {
+    "name": "Mood swings",
+    "description": "Rapid or extreme changes in mood.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 63,
+  "fields": {
+    "name": "Increased thirst",
+    "description": "Excessive feeling of needing to drink fluids.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 64,
+  "fields": {
+    "name": "Increased hunger",
+    "description": "Excessive feeling of needing to eat.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 65,
+  "fields": {
+    "name": "Pale skin",
+    "description": "Skin appearing lighter than usual.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 66,
+  "fields": {
+    "name": "Swollen lymph nodes",
+    "description": "Enlarged lymph glands.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 67,
+  "fields": {
+    "name": "Night sweats",
+    "description": "Excessive sweating during sleep.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 68,
+  "fields": {
+    "name": "Palpitations",
+    "description": "Awareness of rapid or irregular heartbeat.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 69,
+  "fields": {
+    "name": "Swollen legs",
+    "description": "Fluid buildup causing swelling in the legs.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 70,
+  "fields": {
+    "name": "Cold hands and feet",
+    "description": "Unusually cold extremities.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 71,
+  "fields": {
+    "name": "Sensitivity to light",
+    "description": "Discomfort or pain in the eyes when exposed to light.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 72,
+  "fields": {
+    "name": "Ear pain",
+    "description": "Pain in the ear.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 73,
+  "fields": {
+    "name": "Hearing loss",
+    "description": "Reduced ability to hear.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 74,
+  "fields": {
+    "name": "Runny or itchy eyes",
+    "description": "Watery, irritated eyes.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 75,
+  "fields": {
+    "name": "Loss of smell",
+    "description": "Reduced or absent ability to smell.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 76,
+  "fields": {
+    "name": "Loss of taste",
+    "description": "Reduced or absent ability to taste.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 77,
+  "fields": {
+    "name": "Muscle cramps",
+    "description": "Sudden involuntary muscle contractions.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 78,
+  "fields": {
+    "name": "Hair loss",
+    "description": "Thinning or loss of hair.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 79,
+  "fields": {
+    "name": "Brittle nails",
+    "description": "Nails that break or chip easily.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 1,
+  "fields": {
+    "name": "Fever",
+    "description": "Elevated body temperature above the normal range",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 2,
+  "fields": {
+    "name": "Severe Chest Pain",
+    "description": "Intense pain in the chest area.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 3,
+  "fields": {
+    "name": "Influenza",
+    "description": "A contagious respiratory illness caused by influenza viruses.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 4,
+  "fields": {
+    "name": "Malaria",
+    "description": "A mosquito-borne infectious disease caused by Plasmodium parasites.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 5,
+  "fields": {
+    "name": "Common Cold",
+    "description": "A viral infection of the upper respiratory tract.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 6,
+  "fields": {
+    "name": "Pneumonia",
+    "description": "An infection that inflames the air sacs in one or both lungs.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 7,
+  "fields": {
+    "name": "Typhoid Fever",
+    "description": "A bacterial infection caused by Salmonella typhi.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 8,
+  "fields": {
+    "name": "Dengue Fever",
+    "description": "A mosquito-borne tropical disease causing flu-like symptoms.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 9,
+  "fields": {
+    "name": "Gastroenteritis",
+    "description": "Inflammation of the stomach and intestines, usually from infection.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 10,
+  "fields": {
+    "name": "Hypertension",
+    "description": "A condition in which blood pressure is consistently too high.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 11,
+  "fields": {
+    "name": "Type 2 Diabetes",
+    "description": "A chronic condition affecting how the body processes blood sugar.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 12,
+  "fields": {
+    "name": "Asthma",
+    "description": "A condition in which airways narrow, swell, and produce extra mucus.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 13,
+  "fields": {
+    "name": "Migraine",
+    "description": "A neurological condition causing intense, debilitating headaches.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 14,
+  "fields": {
+    "name": "Tension Headache",
+    "description": "A dull, aching headache often described as a tight band around the head.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 15,
+  "fields": {
+    "name": "Gastritis",
+    "description": "Inflammation of the stomach lining.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 16,
+  "fields": {
+    "name": "GERD",
+    "description": "Gastroesophageal reflux disease - chronic acid reflux.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 17,
+  "fields": {
+    "name": "Peptic Ulcer",
+    "description": "A sore on the lining of the stomach or small intestine.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 18,
+  "fields": {
+    "name": "Urinary Tract Infection",
+    "description": "An infection in any part of the urinary system.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 19,
+  "fields": {
+    "name": "Iron Deficiency Anemia",
+    "description": "A condition where blood lacks adequate healthy red blood cells due to insufficient iron.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 20,
+  "fields": {
+    "name": "Allergic Rhinitis",
+    "description": "An allergic response causing sneezing, congestion, and itchy eyes.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 21,
+  "fields": {
+    "name": "Depression",
+    "description": "A mood disorder causing persistent feelings of sadness and loss of interest.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 22,
+  "fields": {
+    "name": "Generalized Anxiety Disorder",
+    "description": "A condition characterized by excessive, uncontrollable worry.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 23,
+  "fields": {
+    "name": "Insomnia",
+    "description": "A sleep disorder making it hard to fall or stay asleep.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 24,
+  "fields": {
+    "name": "Osteoarthritis",
+    "description": "The most common form of arthritis, causing joint pain and stiffness.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 25,
+  "fields": {
+    "name": "Rheumatoid Arthritis",
+    "description": "An autoimmune disorder causing joint inflammation.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 26,
+  "fields": {
+    "name": "Hypothyroidism",
+    "description": "A condition where the thyroid gland does not produce enough hormones.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 27,
+  "fields": {
+    "name": "Hyperthyroidism",
+    "description": "A condition where the thyroid gland produces too much hormone.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 28,
+  "fields": {
+    "name": "Epilepsy",
+    "description": "A neurological disorder characterized by recurrent seizures.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 29,
+  "fields": {
+    "name": "Tuberculosis",
+    "description": "A potentially serious infectious bacterial disease affecting the lungs.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 30,
+  "fields": {
+    "name": "Chickenpox",
+    "description": "A highly contagious viral infection causing an itchy rash.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 31,
+  "fields": {
+    "name": "Measles",
+    "description": "A highly contagious viral disease causing fever and a distinctive rash.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 32,
+  "fields": {
+    "name": "Chronic Kidney Disease",
+    "description": "A long-term condition where the kidneys do not work as well as they should.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 33,
+  "fields": {
+    "name": "Coronary Artery Disease",
+    "description": "A condition where the heart blood vessels become narrowed or blocked.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.condition",
+  "pk": 34,
+  "fields": {
+    "name": "Chronic Obstructive Pulmonary Disease",
+    "description": "A group of lung conditions that block airflow and make breathing difficult.",
+    "articles": []
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 1,
+  "fields": {
+    "condition": 4,
+    "symptom": 12,
+    "weight": 8,
+    "is_core": true,
+    "notes": "Hallmark symptom"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 2,
+  "fields": {
+    "condition": 4,
+    "symptom": 17,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 3,
+  "fields": {
+    "condition": 4,
+    "symptom": 18,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 4,
+  "fields": {
+    "condition": 4,
+    "symptom": 13,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 5,
+  "fields": {
+    "condition": 4,
+    "symptom": 16,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 6,
+  "fields": {
+    "condition": 4,
+    "symptom": 14,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 7,
+  "fields": {
+    "condition": 4,
+    "symptom": 30,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 8,
+  "fields": {
+    "condition": 4,
+    "symptom": 31,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 9,
+  "fields": {
+    "condition": 3,
+    "symptom": 12,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 10,
+  "fields": {
+    "condition": 3,
+    "symptom": 16,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 11,
+  "fields": {
+    "condition": 3,
+    "symptom": 14,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 12,
+  "fields": {
+    "condition": 3,
+    "symptom": 22,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 13,
+  "fields": {
+    "condition": 3,
+    "symptom": 23,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 14,
+  "fields": {
+    "condition": 3,
+    "symptom": 13,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 15,
+  "fields": {
+    "condition": 3,
+    "symptom": 17,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 16,
+  "fields": {
+    "condition": 3,
+    "symptom": 24,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 17,
+  "fields": {
+    "condition": 5,
+    "symptom": 24,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 18,
+  "fields": {
+    "condition": 5,
+    "symptom": 25,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 19,
+  "fields": {
+    "condition": 5,
+    "symptom": 23,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 20,
+  "fields": {
+    "condition": 5,
+    "symptom": 26,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 21,
+  "fields": {
+    "condition": 5,
+    "symptom": 22,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 22,
+  "fields": {
+    "condition": 5,
+    "symptom": 13,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 23,
+  "fields": {
+    "condition": 5,
+    "symptom": 14,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 24,
+  "fields": {
+    "condition": 6,
+    "symptom": 22,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 25,
+  "fields": {
+    "condition": 6,
+    "symptom": 12,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 26,
+  "fields": {
+    "condition": 6,
+    "symptom": 27,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 27,
+  "fields": {
+    "condition": 6,
+    "symptom": 29,
+    "weight": 6,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 28,
+  "fields": {
+    "condition": 6,
+    "symptom": 14,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 29,
+  "fields": {
+    "condition": 6,
+    "symptom": 18,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 30,
+  "fields": {
+    "condition": 6,
+    "symptom": 17,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 31,
+  "fields": {
+    "condition": 7,
+    "symptom": 12,
+    "weight": 9,
+    "is_core": true,
+    "notes": "Prolonged high fever"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 32,
+  "fields": {
+    "condition": 7,
+    "symptom": 13,
+    "weight": 6,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 33,
+  "fields": {
+    "condition": 7,
+    "symptom": 33,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 34,
+  "fields": {
+    "condition": 7,
+    "symptom": 15,
+    "weight": 6,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 35,
+  "fields": {
+    "condition": 7,
+    "symptom": 19,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 36,
+  "fields": {
+    "condition": 7,
+    "symptom": 32,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 37,
+  "fields": {
+    "condition": 7,
+    "symptom": 35,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 38,
+  "fields": {
+    "condition": 8,
+    "symptom": 12,
+    "weight": 9,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 39,
+  "fields": {
+    "condition": 8,
+    "symptom": 13,
+    "weight": 7,
+    "is_core": true,
+    "notes": "Often behind eyes"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 40,
+  "fields": {
+    "condition": 8,
+    "symptom": 16,
+    "weight": 7,
+    "is_core": true,
+    "notes": "Breakbone fever"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 41,
+  "fields": {
+    "condition": 8,
+    "symptom": 49,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 42,
+  "fields": {
+    "condition": 8,
+    "symptom": 30,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 43,
+  "fields": {
+    "condition": 8,
+    "symptom": 14,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 44,
+  "fields": {
+    "condition": 8,
+    "symptom": 52,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 45,
+  "fields": {
+    "condition": 9,
+    "symptom": 32,
+    "weight": 9,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 46,
+  "fields": {
+    "condition": 9,
+    "symptom": 31,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 47,
+  "fields": {
+    "condition": 9,
+    "symptom": 30,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 48,
+  "fields": {
+    "condition": 9,
+    "symptom": 33,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 49,
+  "fields": {
+    "condition": 9,
+    "symptom": 12,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 50,
+  "fields": {
+    "condition": 9,
+    "symptom": 34,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 51,
+  "fields": {
+    "condition": 10,
+    "symptom": 13,
+    "weight": 4,
+    "is_core": false,
+    "notes": "Often asymptomatic"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 52,
+  "fields": {
+    "condition": 10,
+    "symptom": 38,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 53,
+  "fields": {
+    "condition": 10,
+    "symptom": 41,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 54,
+  "fields": {
+    "condition": 10,
+    "symptom": 29,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 55,
+  "fields": {
+    "condition": 10,
+    "symptom": 14,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 56,
+  "fields": {
+    "condition": 11,
+    "symptom": 63,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 57,
+  "fields": {
+    "condition": 11,
+    "symptom": 54,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 58,
+  "fields": {
+    "condition": 11,
+    "symptom": 64,
+    "weight": 5,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 59,
+  "fields": {
+    "condition": 11,
+    "symptom": 14,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 60,
+  "fields": {
+    "condition": 11,
+    "symptom": 41,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 61,
+  "fields": {
+    "condition": 11,
+    "symptom": 20,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 62,
+  "fields": {
+    "condition": 11,
+    "symptom": 40,
+    "weight": 3,
+    "is_core": false,
+    "notes": "Neuropathy"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 63,
+  "fields": {
+    "condition": 12,
+    "symptom": 28,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 64,
+  "fields": {
+    "condition": 12,
+    "symptom": 27,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 65,
+  "fields": {
+    "condition": 12,
+    "symptom": 29,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 66,
+  "fields": {
+    "condition": 12,
+    "symptom": 22,
+    "weight": 6,
+    "is_core": true,
+    "notes": "Especially at night"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 67,
+  "fields": {
+    "condition": 13,
+    "symptom": 13,
+    "weight": 9,
+    "is_core": true,
+    "notes": "Severe, one-sided"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 68,
+  "fields": {
+    "condition": 13,
+    "symptom": 30,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 69,
+  "fields": {
+    "condition": 13,
+    "symptom": 71,
+    "weight": 7,
+    "is_core": true,
+    "notes": "Photophobia"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 70,
+  "fields": {
+    "condition": 13,
+    "symptom": 41,
+    "weight": 4,
+    "is_core": false,
+    "notes": "Aura"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 71,
+  "fields": {
+    "condition": 13,
+    "symptom": 31,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 72,
+  "fields": {
+    "condition": 14,
+    "symptom": 13,
+    "weight": 9,
+    "is_core": true,
+    "notes": "Band-like"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 73,
+  "fields": {
+    "condition": 14,
+    "symptom": 14,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 74,
+  "fields": {
+    "condition": 14,
+    "symptom": 61,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 75,
+  "fields": {
+    "condition": 15,
+    "symptom": 33,
+    "weight": 7,
+    "is_core": true,
+    "notes": "Upper abdomen"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 76,
+  "fields": {
+    "condition": 15,
+    "symptom": 30,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 77,
+  "fields": {
+    "condition": 15,
+    "symptom": 34,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 78,
+  "fields": {
+    "condition": 15,
+    "symptom": 19,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 79,
+  "fields": {
+    "condition": 15,
+    "symptom": 31,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 80,
+  "fields": {
+    "condition": 16,
+    "symptom": 36,
+    "weight": 9,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 81,
+  "fields": {
+    "condition": 16,
+    "symptom": 37,
+    "weight": 9,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 82,
+  "fields": {
+    "condition": 16,
+    "symptom": 29,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 83,
+  "fields": {
+    "condition": 16,
+    "symptom": 30,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 84,
+  "fields": {
+    "condition": 16,
+    "symptom": 34,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 85,
+  "fields": {
+    "condition": 17,
+    "symptom": 33,
+    "weight": 8,
+    "is_core": true,
+    "notes": "Burning pain"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 86,
+  "fields": {
+    "condition": 17,
+    "symptom": 36,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 87,
+  "fields": {
+    "condition": 17,
+    "symptom": 30,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 88,
+  "fields": {
+    "condition": 17,
+    "symptom": 34,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 89,
+  "fields": {
+    "condition": 17,
+    "symptom": 19,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 90,
+  "fields": {
+    "condition": 18,
+    "symptom": 55,
+    "weight": 9,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 91,
+  "fields": {
+    "condition": 18,
+    "symptom": 54,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 92,
+  "fields": {
+    "condition": 18,
+    "symptom": 33,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 93,
+  "fields": {
+    "condition": 18,
+    "symptom": 12,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 94,
+  "fields": {
+    "condition": 18,
+    "symptom": 56,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 95,
+  "fields": {
+    "condition": 19,
+    "symptom": 14,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 96,
+  "fields": {
+    "condition": 19,
+    "symptom": 15,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 97,
+  "fields": {
+    "condition": 19,
+    "symptom": 65,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 98,
+  "fields": {
+    "condition": 19,
+    "symptom": 27,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 99,
+  "fields": {
+    "condition": 19,
+    "symptom": 38,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 100,
+  "fields": {
+    "condition": 19,
+    "symptom": 70,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 101,
+  "fields": {
+    "condition": 19,
+    "symptom": 79,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 102,
+  "fields": {
+    "condition": 19,
+    "symptom": 78,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 103,
+  "fields": {
+    "condition": 20,
+    "symptom": 26,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 104,
+  "fields": {
+    "condition": 20,
+    "symptom": 24,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 105,
+  "fields": {
+    "condition": 20,
+    "symptom": 25,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 106,
+  "fields": {
+    "condition": 20,
+    "symptom": 74,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 107,
+  "fields": {
+    "condition": 20,
+    "symptom": 50,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 108,
+  "fields": {
+    "condition": 21,
+    "symptom": 59,
+    "weight": 9,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 109,
+  "fields": {
+    "condition": 21,
+    "symptom": 14,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 110,
+  "fields": {
+    "condition": 21,
+    "symptom": 60,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 111,
+  "fields": {
+    "condition": 21,
+    "symptom": 19,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 112,
+  "fields": {
+    "condition": 21,
+    "symptom": 20,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 113,
+  "fields": {
+    "condition": 21,
+    "symptom": 21,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 114,
+  "fields": {
+    "condition": 21,
+    "symptom": 42,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 115,
+  "fields": {
+    "condition": 22,
+    "symptom": 58,
+    "weight": 9,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 116,
+  "fields": {
+    "condition": 22,
+    "symptom": 60,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 117,
+  "fields": {
+    "condition": 22,
+    "symptom": 61,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 118,
+  "fields": {
+    "condition": 22,
+    "symptom": 14,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 119,
+  "fields": {
+    "condition": 22,
+    "symptom": 46,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 120,
+  "fields": {
+    "condition": 22,
+    "symptom": 68,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 121,
+  "fields": {
+    "condition": 23,
+    "symptom": 60,
+    "weight": 10,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 122,
+  "fields": {
+    "condition": 23,
+    "symptom": 14,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 123,
+  "fields": {
+    "condition": 23,
+    "symptom": 61,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 124,
+  "fields": {
+    "condition": 23,
+    "symptom": 42,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 125,
+  "fields": {
+    "condition": 24,
+    "symptom": 44,
+    "weight": 9,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 126,
+  "fields": {
+    "condition": 24,
+    "symptom": 47,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 127,
+  "fields": {
+    "condition": 24,
+    "symptom": 48,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 128,
+  "fields": {
+    "condition": 25,
+    "symptom": 44,
+    "weight": 9,
+    "is_core": true,
+    "notes": "Symmetrical"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 129,
+  "fields": {
+    "condition": 25,
+    "symptom": 47,
+    "weight": 8,
+    "is_core": true,
+    "notes": "Morning stiffness"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 130,
+  "fields": {
+    "condition": 25,
+    "symptom": 48,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 131,
+  "fields": {
+    "condition": 25,
+    "symptom": 14,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 132,
+  "fields": {
+    "condition": 25,
+    "symptom": 12,
+    "weight": 3,
+    "is_core": false,
+    "notes": "Low-grade"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 133,
+  "fields": {
+    "condition": 26,
+    "symptom": 14,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 134,
+  "fields": {
+    "condition": 26,
+    "symptom": 21,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 135,
+  "fields": {
+    "condition": 26,
+    "symptom": 70,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 136,
+  "fields": {
+    "condition": 26,
+    "symptom": 53,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 137,
+  "fields": {
+    "condition": 26,
+    "symptom": 78,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 138,
+  "fields": {
+    "condition": 26,
+    "symptom": 35,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 139,
+  "fields": {
+    "condition": 26,
+    "symptom": 59,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 140,
+  "fields": {
+    "condition": 27,
+    "symptom": 20,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 141,
+  "fields": {
+    "condition": 27,
+    "symptom": 68,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 142,
+  "fields": {
+    "condition": 27,
+    "symptom": 58,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 143,
+  "fields": {
+    "condition": 27,
+    "symptom": 18,
+    "weight": 6,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 144,
+  "fields": {
+    "condition": 27,
+    "symptom": 61,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 145,
+  "fields": {
+    "condition": 27,
+    "symptom": 43,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 146,
+  "fields": {
+    "condition": 28,
+    "symptom": 10,
+    "weight": 10,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 147,
+  "fields": {
+    "condition": 28,
+    "symptom": 42,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 148,
+  "fields": {
+    "condition": 28,
+    "symptom": 13,
+    "weight": 3,
+    "is_core": false,
+    "notes": "Post-ictal"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 149,
+  "fields": {
+    "condition": 29,
+    "symptom": 22,
+    "weight": 9,
+    "is_core": true,
+    "notes": "Persistent over 3 weeks"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 150,
+  "fields": {
+    "condition": 29,
+    "symptom": 67,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 151,
+  "fields": {
+    "condition": 29,
+    "symptom": 20,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 152,
+  "fields": {
+    "condition": 29,
+    "symptom": 12,
+    "weight": 6,
+    "is_core": false,
+    "notes": "Low-grade"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 153,
+  "fields": {
+    "condition": 29,
+    "symptom": 14,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 154,
+  "fields": {
+    "condition": 29,
+    "symptom": 29,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 155,
+  "fields": {
+    "condition": 30,
+    "symptom": 49,
+    "weight": 9,
+    "is_core": true,
+    "notes": "Itchy blisters"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 156,
+  "fields": {
+    "condition": 30,
+    "symptom": 50,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 157,
+  "fields": {
+    "condition": 30,
+    "symptom": 12,
+    "weight": 6,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 158,
+  "fields": {
+    "condition": 30,
+    "symptom": 14,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 159,
+  "fields": {
+    "condition": 30,
+    "symptom": 19,
+    "weight": 3,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 160,
+  "fields": {
+    "condition": 31,
+    "symptom": 12,
+    "weight": 8,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 161,
+  "fields": {
+    "condition": 31,
+    "symptom": 49,
+    "weight": 9,
+    "is_core": true,
+    "notes": "Distinctive pattern"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 162,
+  "fields": {
+    "condition": 31,
+    "symptom": 22,
+    "weight": 6,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 163,
+  "fields": {
+    "condition": 31,
+    "symptom": 24,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 164,
+  "fields": {
+    "condition": 31,
+    "symptom": 74,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 165,
+  "fields": {
+    "condition": 31,
+    "symptom": 71,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 166,
+  "fields": {
+    "condition": 32,
+    "symptom": 14,
+    "weight": 6,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 167,
+  "fields": {
+    "condition": 32,
+    "symptom": 69,
+    "weight": 7,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 168,
+  "fields": {
+    "condition": 32,
+    "symptom": 54,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 169,
+  "fields": {
+    "condition": 32,
+    "symptom": 30,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 170,
+  "fields": {
+    "condition": 32,
+    "symptom": 19,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 171,
+  "fields": {
+    "condition": 33,
+    "symptom": 29,
+    "weight": 8,
+    "is_core": true,
+    "notes": "Angina"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 172,
+  "fields": {
+    "condition": 33,
+    "symptom": 27,
+    "weight": 6,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 173,
+  "fields": {
+    "condition": 33,
+    "symptom": 14,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 174,
+  "fields": {
+    "condition": 33,
+    "symptom": 68,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 175,
+  "fields": {
+    "condition": 34,
+    "symptom": 27,
+    "weight": 9,
+    "is_core": true,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 176,
+  "fields": {
+    "condition": 34,
+    "symptom": 22,
+    "weight": 8,
+    "is_core": true,
+    "notes": "Chronic"
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 177,
+  "fields": {
+    "condition": 34,
+    "symptom": 28,
+    "weight": 6,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 178,
+  "fields": {
+    "condition": 34,
+    "symptom": 29,
+    "weight": 5,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "medical_data.conditionsymptom",
+  "pk": 179,
+  "fields": {
+    "condition": 34,
+    "symptom": 14,
+    "weight": 4,
+    "is_core": false,
+    "notes": ""
+  }
+},
+{
+  "model": "episodes.healthepisode",
+  "pk": 1,
+  "fields": {
+    "client": 2,
+    "title": "cough",
+    "status": "OPEN",
+    "created_at": "2026-09-07T08:20:34.434Z",
+    "updated_at": "2026-09-07T08:20:34.434Z",
+    "video_started_at": null
+  }
+},
+{
+  "model": "episodes.healthepisode",
+  "pk": 2,
+  "fields": {
+    "client": 2,
+    "title": "Consultation Request",
+    "status": "IN_CONSULTATION",
+    "created_at": "2026-09-10T23:24:44.539Z",
+    "updated_at": "2026-09-10T23:24:45.418Z",
+    "video_started_at": null
+  }
+},
+{
+  "model": "episodes.healthepisode",
+  "pk": 3,
+  "fields": {
+    "client": 2,
+    "title": "Consultation Request",
+    "status": "IN_CONSULTATION",
+    "created_at": "2026-09-10T23:25:00.103Z",
+    "updated_at": "2026-09-10T23:25:00.984Z",
+    "video_started_at": null
+  }
+},
+{
+  "model": "episodes.healthepisode",
+  "pk": 4,
+  "fields": {
+    "client": 2,
+    "title": "Consultation Request",
+    "status": "IN_CONSULTATION",
+    "created_at": "2026-09-10T23:28:44.161Z",
+    "updated_at": "2026-09-11T00:03:53.082Z",
+    "video_started_at": "2026-09-11T00:03:53.081Z"
+  }
+},
+{
+  "model": "episodes.episodesymptom",
+  "pk": 1,
+  "fields": {
+    "episode": 1,
+    "symptom": 45,
+    "reported_severity": "MODERATE",
+    "added_at": "2026-09-07T08:20:34.437Z"
+  }
+},
+{
+  "model": "episodes.doctorrequest",
+  "pk": 1,
+  "fields": {
+    "episode": 2,
+    "client": 2,
+    "doctor": 3,
+    "requested_specialty": null,
+    "reason": "Live regression verification",
+    "doctor_notes": "",
+    "rejection_reason": "",
+    "status": "ACCEPTED",
+    "created_at": "2026-09-10T23:24:44.580Z",
+    "updated_at": "2026-09-10T23:24:45.415Z",
+    "responded_at": "2026-09-10T23:24:45.414Z"
+  }
+},
+{
+  "model": "episodes.doctorrequest",
+  "pk": 2,
+  "fields": {
+    "episode": 3,
+    "client": 2,
+    "doctor": 3,
+    "requested_specialty": null,
+    "reason": "Live regression verification",
+    "doctor_notes": "",
+    "rejection_reason": "",
+    "status": "ACCEPTED",
+    "created_at": "2026-09-10T23:25:00.109Z",
+    "updated_at": "2026-09-10T23:25:00.980Z",
+    "responded_at": "2026-09-10T23:25:00.979Z"
+  }
+},
+{
+  "model": "episodes.doctorrequest",
+  "pk": 3,
+  "fields": {
+    "episode": 4,
+    "client": 2,
+    "doctor": 3,
+    "requested_specialty": null,
+    "reason": "xxjxj",
+    "doctor_notes": "whatsup",
+    "rejection_reason": "",
+    "status": "ACCEPTED",
+    "created_at": "2026-09-10T23:28:44.179Z",
+    "updated_at": "2026-09-10T23:29:28.911Z",
+    "responded_at": "2026-09-10T23:29:28.910Z"
+  }
+}
+]
