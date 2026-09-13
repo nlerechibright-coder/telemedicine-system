@@ -9,6 +9,10 @@
         Select all the symptoms you are currently experiencing. This tool uses a rule-based system to provide informational guidance. 
         <strong>It does not provide a medical diagnosis.</strong> If you are experiencing a medical emergency, please seek immediate care.
     </p>
+    <p style="color: #2c3e50; margin-bottom: 1.5rem;">
+        <strong>Optional:</strong> Check your symptoms first, or consult a doctor directly.
+        <a href="{% url 'consultations:request_consultation' %}" style="color: #3498db; font-weight: 600;">Request a doctor without checking symptoms</a>.
+    </p>
 
     <form method="post" action="{% url 'medical_data:symptom_match' %}">
         {% csrf_token %}
@@ -43,6 +47,7 @@
             <!-- Simple Search/Filter for symptoms (client-side JS) -->
             <input type="text" id="symptomSearch" placeholder="Search symptoms..." 
                    style="width: 100%; padding: 0.75rem; border: 1px solid #ced4da; border-radius: 6px; margin-bottom: 1rem; font-size: 1rem; box-sizing: border-box;">
+                 <p id="symptomSuggestions" class="symptom-suggestions" aria-live="polite" hidden></p>
             
             <div id="symptomList" class="symptom-list">
                 {% if normal_symptoms %}
@@ -66,17 +71,65 @@
 </div>
 
 <script>
-    // Simple client-side search filter for symptoms
     const symptomSearch = document.getElementById('symptomSearch');
     const symptomItems = document.querySelectorAll('.symptom-item');
+    const symptomSuggestions = document.getElementById('symptomSuggestions');
+
+    const normalizeText = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const editDistance = (left, right) => {
+        const distances = Array.from({ length: right.length + 1 }, (_, index) => index);
+
+        for (let leftIndex = 1; leftIndex <= left.length; leftIndex += 1) {
+            let previous = distances[0];
+            distances[0] = leftIndex;
+
+            for (let rightIndex = 1; rightIndex <= right.length; rightIndex += 1) {
+                const current = distances[rightIndex];
+                distances[rightIndex] = Math.min(
+                    distances[rightIndex] + 1,
+                    distances[rightIndex - 1] + 1,
+                    previous + (left[leftIndex - 1] === right[rightIndex - 1] ? 0 : 1),
+                );
+                previous = current;
+            }
+        }
+
+        return distances[right.length];
+    };
+
+    const symptomNames = Array.from(symptomItems, item => ({
+        item,
+        name: item.querySelector('span').textContent.trim(),
+        normalized: normalizeText(item.querySelector('span').textContent),
+    }));
 
     symptomSearch.addEventListener('input', function(e) {
-        const searchTerm = e.target.value.trim().toLowerCase();
+        const searchTerm = normalizeText(e.target.value.trim());
+        let visibleCount = 0;
 
-        symptomItems.forEach(item => {
-            const symptomName = item.querySelector('span').textContent.toLowerCase();
-            item.hidden = !symptomName.includes(searchTerm);
+        symptomNames.forEach(({ item, normalized }) => {
+            const matches = !searchTerm || normalized.includes(searchTerm);
+            item.hidden = !matches;
+            if (matches) visibleCount += 1;
         });
+
+        if (!searchTerm || visibleCount > 0) {
+            symptomSuggestions.hidden = true;
+            symptomSuggestions.textContent = '';
+            return;
+        }
+
+        const suggestions = symptomNames
+            .map(({ name, normalized }) => ({ name, distance: editDistance(searchTerm, normalized) }))
+            .filter(({ distance }) => distance <= Math.max(2, Math.floor(searchTerm.length / 3)))
+            .sort((left, right) => left.distance - right.distance)
+            .slice(0, 3)
+            .map(({ name }) => name);
+
+        symptomSuggestions.textContent = suggestions.length
+            ? `Did you mean: ${suggestions.join(', ')}?`
+            : 'No matching symptoms found.';
+        symptomSuggestions.hidden = false;
     });
 </script>
 {% endblock %}

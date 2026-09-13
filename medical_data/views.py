@@ -1,11 +1,17 @@
+import logging
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Sum, Count, Q
+from django.views.decorators.cache import never_cache
 from .models import Symptom, Condition, ConditionSymptom
+
+logger = logging.getLogger(__name__)
 
 
 @login_required
+@never_cache
 def symptom_select_view(request):
     """
     Display all symptoms for the client to select.
@@ -23,6 +29,12 @@ def symptom_select_view(request):
     # Separate red-flag symptoms for prominent display
     red_flag_symptoms = symptoms.filter(is_red_flag=True)
     normal_symptoms = symptoms.filter(is_red_flag=False)
+    logger.info(
+        'Symptom checker loaded for client %s: %d normal, %d red-flag symptoms',
+        request.user.pk,
+        normal_symptoms.count(),
+        red_flag_symptoms.count(),
+    )
     
     return render(request, 'medical_data/symptom_select.html', {
         'red_flag_symptoms': red_flag_symptoms,

@@ -1,0 +1,792 @@
+﻿[
+{
+  "model": "medical_data.symptom",
+  "pk": 1,
+  "fields": {
+    "name": "Severe Chest Pain",
+    "description": "Intense pain in the chest area.",
+    "is_red_flag": true,
+    "emergency_message": "Severe chest pain can be a sign of a heart attack. Call emergency services immediately"
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 2,
+  "fields": {
+    "name": "Severe chest pain",
+    "description": "Intense pain or pressure in the chest, possibly radiating to arms, neck, or jaw.",
+    "is_red_flag": true,
+    "emergency_message": "Severe chest pain can indicate a heart attack or other life-threatening condition. Call emergency services immediately."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 3,
+  "fields": {
+    "name": "Sudden severe headache",
+    "description": "An extremely intense headache that appears suddenly, often described as the worst headache of my life.",
+    "is_red_flag": true,
+    "emergency_message": "A sudden severe headache could indicate a stroke or brain hemorrhage. Seek emergency medical care immediately."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 4,
+  "fields": {
+    "name": "Severe difficulty breathing",
+    "description": "Inability to breathe properly, gasping for air, or feeling of suffocation.",
+    "is_red_flag": true,
+    "emergency_message": "Severe difficulty breathing is a medical emergency. Call emergency services or go to the nearest hospital immediately."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 5,
+  "fields": {
+    "name": "Loss of consciousness",
+    "description": "Fainting or complete loss of awareness.",
+    "is_red_flag": true,
+    "emergency_message": "Loss of consciousness requires immediate emergency medical attention. Call emergency services."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 6,
+  "fields": {
+    "name": "Severe uncontrolled bleeding",
+    "description": "Heavy bleeding that does not stop with direct pressure.",
+    "is_red_flag": true,
+    "emergency_message": "Uncontrolled bleeding is a medical emergency. Apply direct pressure and seek emergency care immediately."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 7,
+  "fields": {
+    "name": "Thoughts of self-harm",
+    "description": "Thoughts of hurting oneself or ending ones life.",
+    "is_red_flag": true,
+    "emergency_message": "If you are having thoughts of self-harm, please reach out for help immediately. Contact a crisis helpline or go to the nearest emergency room."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 8,
+  "fields": {
+    "name": "Sudden confusion or disorientation",
+    "description": "Abrupt inability to think clearly, recognize people or places, or speak coherently.",
+    "is_red_flag": true,
+    "emergency_message": "Sudden confusion may indicate a stroke or other serious neurological emergency. Seek immediate medical care."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 9,
+  "fields": {
+    "name": "High fever with stiff neck",
+    "description": "High temperature combined with inability to bend the neck forward.",
+    "is_red_flag": true,
+    "emergency_message": "High fever with a stiff neck may indicate meningitis. Seek emergency medical care immediately."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 10,
+  "fields": {
+    "name": "Seizures",
+    "description": "Uncontrolled electrical disturbance in the brain causing changes in behavior, movements, or consciousness.",
+    "is_red_flag": true,
+    "emergency_message": "Seizures require immediate medical attention. If this is a first-time seizure or lasts more than 5 minutes, call emergency services."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 11,
+  "fields": {
+    "name": "Severe abdominal pain",
+    "description": "Intense pain in the abdomen that is sudden and severe.",
+    "is_red_flag": true,
+    "emergency_message": "Severe abdominal pain may indicate a surgical emergency such as appendicitis. Seek immediate medical care."
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 12,
+  "fields": {
+    "name": "Fever",
+    "description": "Elevated body temperature above the normal range.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 13,
+  "fields": {
+    "name": "Headache",
+    "description": "Pain in the head or upper neck.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 14,
+  "fields": {
+    "name": "Fatigue",
+    "description": "Persistent tiredness or exhaustion not relieved by rest.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 15,
+  "fields": {
+    "name": "Weakness",
+    "description": "Lack of physical strength or energy.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 16,
+  "fields": {
+    "name": "Body aches",
+    "description": "Generalized muscle pain and discomfort.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 17,
+  "fields": {
+    "name": "Chills",
+    "description": "Feeling of coldness often accompanied by shivering.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 18,
+  "fields": {
+    "name": "Sweating",
+    "description": "Excessive perspiration.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 19,
+  "fields": {
+    "name": "Loss of appetite",
+    "description": "Reduced desire to eat.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 20,
+  "fields": {
+    "name": "Weight loss",
+    "description": "Unintentional decrease in body weight.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 21,
+  "fields": {
+    "name": "Weight gain",
+    "description": "Unintentional increase in body weight.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 22,
+  "fields": {
+    "name": "Cough",
+    "description": "Sudden expulsion of air from the lungs.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 23,
+  "fields": {
+    "name": "Sore throat",
+    "description": "Pain or irritation in the throat.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 24,
+  "fields": {
+    "name": "Runny nose",
+    "description": "Excessive nasal discharge.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 25,
+  "fields": {
+    "name": "Nasal congestion",
+    "description": "Stuffy or blocked nose.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 26,
+  "fields": {
+    "name": "Sneezing",
+    "description": "Sudden involuntary expulsion of air through the nose.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 27,
+  "fields": {
+    "name": "Shortness of breath",
+    "description": "Difficulty breathing or feeling out of breath.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 28,
+  "fields": {
+    "name": "Wheezing",
+    "description": "High-pitched whistling sound when breathing.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 29,
+  "fields": {
+    "name": "Chest tightness",
+    "description": "Feeling of constriction or pressure in the chest.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 30,
+  "fields": {
+    "name": "Nausea",
+    "description": "Feeling of sickness with an urge to vomit.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 31,
+  "fields": {
+    "name": "Vomiting",
+    "description": "Forceful expulsion of stomach contents through the mouth.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 32,
+  "fields": {
+    "name": "Diarrhea",
+    "description": "Frequent loose or watery bowel movements.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 33,
+  "fields": {
+    "name": "Abdominal pain",
+    "description": "Pain felt in the belly area.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 34,
+  "fields": {
+    "name": "Bloating",
+    "description": "Feeling of fullness and swelling in the abdomen.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 35,
+  "fields": {
+    "name": "Constipation",
+    "description": "Infrequent or difficult bowel movements.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 36,
+  "fields": {
+    "name": "Heartburn",
+    "description": "Burning sensation in the chest, usually after eating.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 37,
+  "fields": {
+    "name": "Acid reflux",
+    "description": "Backflow of stomach acid into the esophagus.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 38,
+  "fields": {
+    "name": "Dizziness",
+    "description": "Feeling lightheaded or unsteady.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 39,
+  "fields": {
+    "name": "Numbness",
+    "description": "Loss of sensation in a body part.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 40,
+  "fields": {
+    "name": "Tingling",
+    "description": "Pins-and-needles sensation.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 41,
+  "fields": {
+    "name": "Blurred vision",
+    "description": "Lack of sharpness of vision.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 42,
+  "fields": {
+    "name": "Memory problems",
+    "description": "Difficulty remembering things.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 43,
+  "fields": {
+    "name": "Tremors",
+    "description": "Involuntary shaking of a body part.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 44,
+  "fields": {
+    "name": "Joint pain",
+    "description": "Discomfort or ache in a joint.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 45,
+  "fields": {
+    "name": "Back pain",
+    "description": "Pain felt in the back.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 46,
+  "fields": {
+    "name": "Muscle pain",
+    "description": "Pain in the muscles.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 47,
+  "fields": {
+    "name": "Joint stiffness",
+    "description": "Reduced ability to move a joint freely.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 48,
+  "fields": {
+    "name": "Swelling",
+    "description": "Enlargement of a body part due to fluid accumulation.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 49,
+  "fields": {
+    "name": "Skin rash",
+    "description": "Visible change in skin texture or color.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 50,
+  "fields": {
+    "name": "Itching",
+    "description": "Uncomfortable sensation causing the desire to scratch.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 51,
+  "fields": {
+    "name": "Skin redness",
+    "description": "Red or inflamed appearance of the skin.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 52,
+  "fields": {
+    "name": "Bruising",
+    "description": "Discoloration of the skin due to bleeding underneath.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 53,
+  "fields": {
+    "name": "Dry skin",
+    "description": "Skin lacking normal moisture.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 54,
+  "fields": {
+    "name": "Frequent urination",
+    "description": "Need to urinate more often than usual.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 55,
+  "fields": {
+    "name": "Painful urination",
+    "description": "Burning or pain during urination.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 56,
+  "fields": {
+    "name": "Blood in urine",
+    "description": "Presence of blood in the urine.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 57,
+  "fields": {
+    "name": "Dark urine",
+    "description": "Urine that is darker than normal in color.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 58,
+  "fields": {
+    "name": "Anxiety",
+    "description": "Feeling of worry, nervousness, or unease.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 59,
+  "fields": {
+    "name": "Depressed mood",
+    "description": "Persistent feeling of sadness or loss of interest.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 60,
+  "fields": {
+    "name": "Insomnia",
+    "description": "Difficulty falling or staying asleep.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 61,
+  "fields": {
+    "name": "Irritability",
+    "description": "Easily annoyed or angered.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 62,
+  "fields": {
+    "name": "Mood swings",
+    "description": "Rapid or extreme changes in mood.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 63,
+  "fields": {
+    "name": "Increased thirst",
+    "description": "Excessive feeling of needing to drink fluids.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 64,
+  "fields": {
+    "name": "Increased hunger",
+    "description": "Excessive feeling of needing to eat.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 65,
+  "fields": {
+    "name": "Pale skin",
+    "description": "Skin appearing lighter than usual.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 66,
+  "fields": {
+    "name": "Swollen lymph nodes",
+    "description": "Enlarged lymph glands.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 67,
+  "fields": {
+    "name": "Night sweats",
+    "description": "Excessive sweating during sleep.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 68,
+  "fields": {
+    "name": "Palpitations",
+    "description": "Awareness of rapid or irregular heartbeat.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 69,
+  "fields": {
+    "name": "Swollen legs",
+    "description": "Fluid buildup causing swelling in the legs.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 70,
+  "fields": {
+    "name": "Cold hands and feet",
+    "description": "Unusually cold extremities.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 71,
+  "fields": {
+    "name": "Sensitivity to light",
+    "description": "Discomfort or pain in the eyes when exposed to light.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 72,
+  "fields": {
+    "name": "Ear pain",
+    "description": "Pain in the ear.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 73,
+  "fields": {
+    "name": "Hearing loss",
+    "description": "Reduced ability to hear.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 74,
+  "fields": {
+    "name": "Runny or itchy eyes",
+    "description": "Watery, irritated eyes.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 75,
+  "fields": {
+    "name": "Loss of smell",
+    "description": "Reduced or absent ability to smell.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 76,
+  "fields": {
+    "name": "Loss of taste",
+    "description": "Reduced or absent ability to taste.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 77,
+  "fields": {
+    "name": "Muscle cramps",
+    "description": "Sudden involuntary muscle contractions.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 78,
+  "fields": {
+    "name": "Hair loss",
+    "description": "Thinning or loss of hair.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+},
+{
+  "model": "medical_data.symptom",
+  "pk": 79,
+  "fields": {
+    "name": "Brittle nails",
+    "description": "Nails that break or chip easily.",
+    "is_red_flag": false,
+    "emergency_message": ""
+  }
+}
+]
