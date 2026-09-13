@@ -5,9 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Sum, Count, Q
 from django.views.decorators.cache import never_cache
-from django.http import HttpResponse
-from django.contrib.admin.views.decorators import staff_member_required
-from django.core.management import call_command
 from .models import Symptom, Condition, ConditionSymptom
 
 logger = logging.getLogger(__name__)
@@ -155,21 +152,3 @@ def symptom_match_view(request):
         'matched_conditions': sorted_conditions,
         'no_matches': len(sorted_conditions) == 0,
     })
-
-
-@staff_member_required
-def seed_db_temp_view(request):
-    """
-    Temporary view to seed the database via browser. 
-    MUST BE REMOVED AFTER USE FOR SECURITY.
-    """
-    try:
-        call_command('seed_symptoms')
-        return HttpResponse(
-            "<h1>✅ Success!</h1>"
-            "<p>79 symptoms have been seeded into the production database.</p>"
-            "<p><strong>IMPORTANT:</strong> Please delete this code from views.py and urls.py now for security.</p>"
-            "<a href='/medical/symptoms/'>Go to Symptom Checker</a>"
-        )
-    except Exception as e:
-        return HttpResponse(f"<h1>❌ Error</h1><p>{e}</p>")
