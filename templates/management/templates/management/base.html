@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<style>
+    .mgmt-sidebar { min-height: calc(100vh - 60px); background-color: #f8f9fa; border-right: 1px solid #dee2e6; }
+    .mgmt-nav-link { color: #495057; padding: 0.75rem 1rem; border-radius: 0.375rem; display: block; text-decoration: none; margin-bottom: 0.25rem; }
+    .mgmt-nav-link:hover { background-color: #e9ecef; color: #0d6efd; }
+    .mgmt-nav-link.active { background-color: #0d6efd; color: white !important; }
+</style>
+{% endblock %}
+{% block content %}
+<div class="row g-0">
+    <div class="col-md-2 mgmt-sidebar p-3">
+        <h5 class="mb-3 px-2 text-primary">Management Console</h5>
+        <nav class="nav flex-column">
+            <a class="mgmt-nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'management:dashboard' %}">📊 Dashboard</a>
+            <a class="mgmt-nav-link {% if request.resolver_match.url_name == 'user_list' %}active{% endif %}" href="{% url 'management:user_list' %}">👥 Patients & Users</a>
+            <a class="mgmt-nav-link {% if request.resolver_match.url_name == 'doctor_list' %}active{% endif %}" href="{% url 'management:doctor_list' %}">🩺 Doctors</a>
+            <a class="mgmt-nav-link {% if request.resolver_match.url_name == 'consultation_list' %}active{% endif %}" href="{% url 'management:consultation_list' %}"> Consultations</a>
+            <a class="mgmt-nav-link {% if request.resolver_match.url_name == 'kb_list' %}active{% endif %}" href="{% url 'management:kb_list' %}">📚 Knowledge Base</a>
+        </nav>
+    </div>
+    <div class="col-md-10 p-4">
+        {% block management_content %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

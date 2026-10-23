@@ -7,5 +7,5 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('register/', views.register_view, name='register'),
     path('logout/', views.logout_view, name='logout'),
-    path('setup-manager/', views.setup_manager_view, name='setup_manager'),
+    # setup-manager route has been permanently removed
 ]

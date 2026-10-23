@@ -6,7 +6,7 @@ from django.db.models import Q
 from .decorators import management_role_required
 from doctors.models import DoctorProfile, Specialty
 from consultations.models import Consultation
-from knowledge_base.models import Article
+from knowledge_base.models import Article, Category
 
 User = get_user_model()
 
@@ -62,13 +62,15 @@ def doctor_create(request):
         
         try:
             with transaction.atomic():
+                # Create User
                 user = User.objects.create_user(email=email, password=password, role=User.Role.DOCTOR, is_active=True)
+                # Create Profile
                 specialty = Specialty.objects.get(id=specialty_id)
                 DoctorProfile.objects.create(
                     user=user, specialty=specialty, license_number=license_number,
                     qualifications=qualifications, consultation_fee=consultation_fee, is_verified=True
                 )
-            messages.success(request, f'Doctor {email} created successfully.')
+            messages.success(request, f'Doctor {email} created successfully. Please provide them with their credentials securely.')
             return redirect('management:doctor_list')
         except Exception as e:
             messages.error(request, f'Error creating doctor: {str(e)}')
