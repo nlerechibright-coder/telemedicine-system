@@ -1,0 +1,42 @@
+{% extends 'management/base.html' %}
+{% block management_content %}
+<h2 class="mb-4">Management Dashboard</h2>
+<div class="row mb-4">
+    <div class="col-md-3"><div class="card text-white bg-primary mb-3"><div class="card-body"><h5 class="card-title">Total Clients</h5><p class="card-text display-6">{{ total_clients }}</p></div></div></div>
+    <div class="col-md-3"><div class="card text-white bg-success mb-3"><div class="card-body"><h5 class="card-title">Verified Doctors</h5><p class="card-text display-6">{{ verified_doctors }} <small class="fs-6">({{ pending_doctors }} pending)</small></p></div></div></div>
+    <div class="col-md-3"><div class="card text-white bg-warning mb-3"><div class="card-body"><h5 class="card-title">Pending Consultations</h5><p class="card-text display-6">{{ pending_consultations }}</p></div></div></div>
+    <div class="col-md-3"><div class="card text-white bg-info mb-3"><div class="card-body"><h5 class="card-title">KB Articles</h5><p class="card-text display-6">{{ total_articles }}</p></div></div></div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Recent Users</div>
+            <ul class="list-group list-group-flush">
+                {% for user in recent_users %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ user.email }} <span class="badge bg-secondary">{{ user.get_role_display }}</span>
+                </li>
+                {% empty %}
+                <li class="list-group-item">No users yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Recent Consultations</div>
+            <ul class="list-group list-group-flush">
+                {% for c in recent_consultations %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>{{ c.client.email }} &rarr; Dr. {{ c.doctor.email }}</span>
+                    <span class="badge bg-{% if c.status == 'PENDING' %}warning{% elif c.status == 'ACCEPTED' %}success{% else %}secondary{% endif %}">{{ c.get_status_display }}</span>
+                </li>
+                {% empty %}
+                <li class="list-group-item">No consultations yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

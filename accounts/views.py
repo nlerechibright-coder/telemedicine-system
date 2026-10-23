@@ -1,95 +1,96 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout
 from django.contrib import messages
+from django.conf import settings
 from .forms import ClientRegistrationForm, CustomLoginForm
+from .models import CustomUser
 
 
 def register_view(request):
-    """
-    Handle client registration.
-    If the user is already logged in, redirect them to the home page.
-    If the form is submitted with valid data, create the user and log them in.
-    Otherwise, display the empty registration form.
-    """
-    
-    # If user is already logged in, they shouldn't be on the register page
     if request.user.is_authenticated:
         return redirect('home')
     
     if request.method == 'POST':
-        # Form was submitted - process the data
         form = ClientRegistrationForm(request.POST)
         if form.is_valid():
-            # Save the new user to the database
-            user = form.save()
-            
-            # Log the user in automatically after registration
+            user = form.save(commit=False)
+            # STRICTLY ENFORCE CLIENT ROLE FOR PUBLIC REGISTRATION
+            user.role = CustomUser.Role.CLIENT
+            user.save()
             login(request, user)
-            
-            # Show a success message
-            messages.success(request, f'Welcome! Your account has been created successfully.')
-            
-            # Redirect to home page (we'll update this to client dashboard later)
+            messages.success(request, 'Welcome! Your account has been created successfully.')
             return redirect('home')
         else:
-            # Form has errors - show them to the user
             messages.error(request, 'Please correct the errors below.')
     else:
-        # GET request - show the empty form
         form = ClientRegistrationForm()
     
-    # Render the registration template with the form
     return render(request, 'accounts/register.html', {'form': form})
 
 
 def login_view(request):
-    """
-    Handle user login.
-    Supports login for all user types (Client, Doctor, Admin) using email and password.
-    Redirects users to different pages based on their role.
-    """
-    
-    # If user is already logged in, redirect them
     if request.user.is_authenticated:
         return redirect('home')
     
     if request.method == 'POST':
-        # Form was submitted
         form = CustomLoginForm(request, data=request.POST)
         if form.is_valid():
-            # Get the authenticated user
             user = form.get_user()
-            
-            # Log the user in
             login(request, user)
-            
-            # Show a welcome message
             messages.success(request, f'Welcome back, {user.email}!')
             
-            # Redirect based on user role
-            if user.is_doctor:
-                return redirect('home')  # Will be updated to doctor dashboard later
+            # Role-based redirection
+            if user.is_manager:
+                return redirect('management:dashboard')
+            elif user.is_doctor:
+                return redirect('home') # Update to doctors:dashboard when ready
             elif user.is_admin:
-                return redirect('admin:index')  # Django admin panel
+                return redirect('admin:index')
             else:
-                return redirect('home')  # Will be updated to client dashboard later
+                return redirect('home')
         else:
-            # Invalid credentials
             messages.error(request, 'Invalid email or password. Please try again.')
     else:
-        # GET request - show the empty login form
         form = CustomLoginForm()
     
-    # Render the login template with the form
-    return render(request, 'accounts/login.html', {'form': form})
+    return render(request, 'accounts/login.html', {
+        'form': form,
+        'ALLOW_MANAGER_CREATION': getattr(settings, 'ALLOW_MANAGER_CREATION', False)
+    })
 
 
 def logout_view(request):
-    """
-    Handle user logout.
-    Logs the user out and redirects them to the home page.
-    """
     logout(request)
     messages.info(request, 'You have been logged out successfully.')
     return redirect('home')
+
+
+def setup_manager_view(request):
+    """Temporary view to create the first and only management account."""
+    if not getattr(settings, 'ALLOW_MANAGER_CREATION', False):
+        return redirect('accounts:login')
+    
+    if CustomUser.objects.filter(role=CustomUser.Role.MANAGER).exists():
+        messages.error(request, 'Management account already exists.')
+        return redirect('accounts:login')
+
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+        
+        if not email or not password:
+            messages.error(request, 'Email and password are required.')
+        elif password != confirm_password:
+            messages.error(request, 'Passwords do not match.')
+        else:
+            try:
+                CustomUser.objects.create_user(
+                    email=email, password=password, role=CustomUser.Role.MANAGER, is_active=True
+                )
+                messages.success(request, 'Management account created successfully. You can now log in.')
+                return redirect('accounts:login')
+            except Exception as e:
+                messages.error(request, f'Error creating account: {str(e)}')
+                
+    return render(request, 'accounts/setup_manager.html')

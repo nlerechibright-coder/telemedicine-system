@@ -1,44 +1,48 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Telemedicine System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Welcome Back</h2>
+            <p class="text-gray-600 mt-2">Log in to access your health dashboard.</p>
+        </div>
 
-{% block title %}Login - Telemedicine System{% endblock %}
-
-{% block content %}
-<div class="auth-container">
-    <h2>Welcome Back</h2>
-    <p>Log in to access your health dashboard and consultations.</p>
-    
-    <form method="post" class="auth-form">
-        {% csrf_token %}
-        
-        {% if form.non_field_errors %}
-            <div class="alert alert-error">
-                {% for error in form.non_field_errors %}
-                    {{ error }}
-                {% endfor %}
-            </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mb-4 p-3 rounded {% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endif %}
+
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                {{ form.username }}
+                {% if form.username.errors %}<p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>{% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                {{ form.password }}
+                {% if form.password.errors %}<p class="text-red-500 text-xs mt-1">{{ form.password.errors.0 }}</p>{% endif %}
+            </div>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition duration-200">Log In</button>
+        </form>
         
-        <div class="form-group">
-            <label for="{{ form.username.id_for_label }}">Email Address</label>
-            {{ form.username }}
-            {% if form.username.errors %}
-                <div class="alert alert-error">{{ form.username.errors.0 }}</div>
+        <div class="mt-6 text-center">
+            <p class="text-gray-600">Don't have an account? <a href="{% url 'accounts:register' %}" class="text-blue-600 hover:underline">Register here</a>.</p>
+            {% if ALLOW_MANAGER_CREATION %}
+            <p class="mt-4 text-xs text-gray-400"><a href="{% url 'accounts:setup_manager' %}" class="hover:text-gray-600">Setup Management Account</a></p>
             {% endif %}
         </div>
-        
-        <div class="form-group">
-            <label for="{{ form.password.id_for_label }}">Password</label>
-            {{ form.password }}
-            {% if form.password.errors %}
-                <div class="alert alert-error">{{ form.password.errors.0 }}</div>
-            {% endif %}
-        </div>
-        
-        <button type="submit" class="btn-primary">Log In</button>
-    </form>
-    
-    <p class="auth-footer">
-        Don't have an account? <a href="{% url 'accounts:register' %}">Register here</a>.
-    </p>
-</div>
-{% endblock %}
+    </div>
+</body>
+</html>

@@ -1,8 +1,5 @@
 """
 URL configuration for config project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/stable/topics/http/urls/
 """
 from django.contrib import admin
 from django.urls import path, include
@@ -18,6 +15,9 @@ urlpatterns = [
     
     # Accounts App (Registration, Login, Logout)
     path('accounts/', include('accounts.urls')),
+    
+    # Management App (Custom Dashboard)
+    path('management/', include('management.urls')),
     
     # Clients App (Profile management)
     path('clients/', include('clients.urls')),
