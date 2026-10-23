@@ -1,10 +1,24 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.models import BaseInlineFormSet
 from .models import CustomUser
 from doctors.models import DoctorProfile
+
+
+# 1. Custom forms to handle 'email' instead of 'username'
+class CustomUserCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = CustomUser
+        fields = ('email', 'role')
+
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta(UserChangeForm.Meta):
+        model = CustomUser
+        fields = ('email', 'role', 'is_active', 'is_staff', 'is_superuser')
 
 
 class DoctorProfileInlineForm(forms.ModelForm):
@@ -43,7 +57,8 @@ class DoctorProfileInlineForm(forms.ModelForm):
 class DoctorProfileInlineFormSet(BaseInlineFormSet):
     def clean(self):
         super().clean()
-        if self.instance.is_doctor and not any(form.has_changed() and not form.cleaned_data.get('DELETE') for form in self.forms):
+        # Only enforce doctor profile validation if the user is actually a doctor
+        if getattr(self.instance, 'is_doctor', False) and not any(form.has_changed() and not form.cleaned_data.get('DELETE') for form in self.forms):
             raise ValidationError('A doctor must have a completed Doctor Profile.')
 
 
@@ -51,7 +66,7 @@ class DoctorProfileInline(admin.StackedInline):
     model = DoctorProfile
     form = DoctorProfileInlineForm
     formset = DoctorProfileInlineFormSet
-    extra = 1
+    extra = 0  # Changed to 0 so it doesn't force a blank doctor profile for clients
     max_num = 1
     can_delete = False
     fields = (
@@ -65,27 +80,25 @@ class DoctorProfileInline(admin.StackedInline):
         'is_verified',
     )
 
+    def get_queryset(self, request):
+        # Only show the inline data if the user is a doctor
+        qs = super().get_queryset(request)
+        if self.instance.pk and not self.instance.is_doctor:
+            return qs.none()
+        return qs
+
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
-    """
-    Custom admin interface for the CustomUser model.
-    Extends Django's built-in UserAdmin to work with our email-based authentication.
-    """
+    # 2. Tell Django to use our custom forms
+    form = CustomUserChangeForm
+    add_form = CustomUserCreationForm
     
-    # What to display in the list view (table columns)
     list_display = ('email', 'role', 'is_active', 'is_staff', 'date_joined', 'last_login')
-    
-    # Filters in the right sidebar
     list_filter = ('role', 'is_active', 'is_staff', 'date_joined')
-    
-    # Search bar fields
     search_fields = ('email',)
-    
-    # Default ordering
     ordering = ('-date_joined',)
     
-    # Fieldsets for the edit view (organizes the form into sections)
     fieldsets = (
         ('Authentication', {'fields': ('email', 'password')}),
         ('Personal Info', {'fields': ('role',)}),
@@ -95,7 +108,6 @@ class CustomUserAdmin(UserAdmin):
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
     
-    # Fieldsets for the "add user" view (when creating a new user)
     add_fieldsets = (
         ('Create New User', {
             'classes': ('wide',),
@@ -103,7 +115,11 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
     
-    # Make password field read-only in the edit view (since it's hashed)
     readonly_fields = ('last_login', 'date_joined')
-
     inlines = (DoctorProfileInline,)
+
+    def get_inline_instances(self, request, obj=None):
+        # 3. Only show the DoctorProfile inline if the user is a doctor
+        if obj and obj.is_doctor:
+            return super().get_inline_instances(request, obj)
+        return []
