@@ -8,41 +8,56 @@
                 <div class="alert alert-{{ message.tags }}">{{ message }}</div>
             {% endfor %}
         {% endif %}
+        
         <form method="post">
             {% csrf_token %}
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" name="email" class="form-control" required>
+                    <label class="form-label fw-bold">Email Address (Login ID)</label>
+                    <input type="email" name="email" class="form-control" placeholder="doctor@hospital.com" required>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Initial Password</label>
-                    <input type="password" name="password" class="form-control" required>
-                    <small class="text-muted">Provide this securely to the doctor.</small>
+                    <label class="form-label fw-bold">Initial Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Enter secure password" required>
+                    <small class="text-muted">You must provide this securely to the doctor.</small>
                 </div>
             </div>
+            
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label class="form-label">Specialty</label>
+                    <label class="form-label fw-bold">Medical Specialty</label>
                     <select name="specialty" class="form-select" required>
-                        {% for s in specialties %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}
+                        <option value="" disabled selected>— Choose a specialty —</option>
+                        {% for s in specialties %}
+                            <option value="{{ s.id }}">{{ s.name }}</option>
+                        {% empty %}
+                            <option value="" disabled>No specialties found in database.</option>
+                        {% endfor %}
                     </select>
+                    {% if not specialties %}
+                    <small class="text-danger">️ No specialties exist yet. You must add specialties to the database first.</small>
+                    {% endif %}
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">License Number</label>
-                    <input type="text" name="license_number" class="form-control" required>
+                    <label class="form-label fw-bold">Medical License Number</label>
+                    <input type="text" name="license_number" class="form-control" placeholder="e.g., MED-123456" required>
                 </div>
             </div>
+            
             <div class="mb-3">
-                <label class="form-label">Qualifications</label>
-                <input type="text" name="qualifications" class="form-control" placeholder="e.g., MD, PhD" required>
+                <label class="form-label fw-bold">Professional Qualifications</label>
+                <input type="text" name="qualifications" class="form-control" placeholder="e.g., MD, PhD, Board Certified in Cardiology" required>
             </div>
+            
             <div class="mb-3">
-                <label class="form-label">Consultation Fee</label>
-                <input type="number" step="0.01" name="consultation_fee" class="form-control" required>
+                <label class="form-label fw-bold">Consultation Fee ($)</label>
+                <input type="number" step="0.01" name="consultation_fee" class="form-control" placeholder="0.00" required>
             </div>
-            <button type="submit" class="btn btn-primary">Create Doctor Account</button>
-            <a href="{% url 'management:doctor_list' %}" class="btn btn-secondary">Cancel</a>
+            
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary px-4">Create Doctor Account</button>
+                <a href="{% url 'management:doctor_list' %}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
         </form>
     </div>
 </div>
