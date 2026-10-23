@@ -55,27 +55,37 @@ def doctor_create(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        specialty_id = request.POST.get('specialty')
+        specialty_name = request.POST.get('specialty')
         license_number = request.POST.get('license_number')
         qualifications = request.POST.get('qualifications')
         consultation_fee = request.POST.get('consultation_fee')
         
         try:
             with transaction.atomic():
+                # Automatically create the specialty if it doesn't exist
+                specialty, _ = Specialty.objects.get_or_create(
+                    name=specialty_name,
+                    defaults={'description': f'{specialty_name} specialty'}
+                )
+                
                 # Create User
                 user = User.objects.create_user(email=email, password=password, role=User.Role.DOCTOR, is_active=True)
+                
                 # Create Profile
-                specialty = Specialty.objects.get(id=specialty_id)
                 DoctorProfile.objects.create(
-                    user=user, specialty=specialty, license_number=license_number,
-                    qualifications=qualifications, consultation_fee=consultation_fee, is_verified=True
+                    user=user, 
+                    specialty=specialty, 
+                    license_number=license_number,
+                    qualifications=qualifications, 
+                    consultation_fee=consultation_fee, 
+                    is_verified=True
                 )
-            messages.success(request, f'Doctor {email} created successfully. Please provide them with their credentials securely.')
+            messages.success(request, f'Doctor {email} created successfully with specialty "{specialty_name}".')
             return redirect('management:doctor_list')
         except Exception as e:
             messages.error(request, f'Error creating doctor: {str(e)}')
             
-    return render(request, 'management/doctor_create.html', {'specialties': Specialty.objects.all()})
+    return render(request, 'management/doctor_create.html')
 
 @management_role_required
 def doctor_verify(request, doctor_id):

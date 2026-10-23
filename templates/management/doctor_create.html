@@ -26,17 +26,8 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label class="form-label fw-bold">Medical Specialty</label>
-                    <select name="specialty" class="form-select" required>
-                        <option value="" disabled selected>— Choose a specialty —</option>
-                        {% for s in specialties %}
-                            <option value="{{ s.id }}">{{ s.name }}</option>
-                        {% empty %}
-                            <option value="" disabled>No specialties found in database.</option>
-                        {% endfor %}
-                    </select>
-                    {% if not specialties %}
-                    <small class="text-danger">️ No specialties exist yet. You must add specialties to the database first.</small>
-                    {% endif %}
+                    <input type="text" name="specialty" class="form-control" placeholder="e.g., Cardiology, Pediatrics, General Practice" required>
+                    <small class="text-muted">Type the specialty name. It will be created automatically.</small>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-bold">Medical License Number</label>
